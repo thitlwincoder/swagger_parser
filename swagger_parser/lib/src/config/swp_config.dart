@@ -3,6 +3,8 @@ import 'package:yaml/yaml.dart';
 import '../generator/config/generator_config.dart';
 import '../generator/model/json_serializer.dart';
 import '../generator/model/programming_language.dart';
+import '../parser/corrector/open_api_corrector.dart';
+import '../parser/parser/open_api_parser.dart';
 import '../parser/swagger_parser_core.dart';
 import 'config_exception.dart';
 
@@ -34,6 +36,7 @@ class SWPConfig {
     this.enumsParentPrefix = true,
     this.skippedParameters = const <String>[],
     this.generateValidator = false,
+    this.generateCleanArch,
   });
 
   /// Internal constructor of [SWPConfig]
@@ -62,6 +65,7 @@ class SWPConfig {
     required this.enumsParentPrefix,
     required this.skippedParameters,
     required this.generateValidator,
+    required this.generateCleanArch,
   });
 
   /// Creates a [SWPConfig] from [YamlMap].
@@ -291,6 +295,17 @@ class SWPConfig {
         "Config parameter 'generate_validator' must be bool.",
       );
     }
+    final generateCleanArchMap = yamlMap['generate_clean_arch'];
+
+    GenerateCleanArch? generateCleanArch;
+
+    if (generateCleanArchMap is! YamlMap?) {
+      throw const ConfigException(
+        "Config parameter 'generate_clean_arch' must be map.",
+      );
+    } else if (generateCleanArchMap != null) {
+      generateCleanArch = GenerateCleanArch.fromYaml(generateCleanArchMap);
+    }
 
     // Default config
     final dc = SWPConfig(name: name, outputDirectory: outputDirectory);
@@ -322,6 +337,7 @@ class SWPConfig {
       originalHttpResponse: originalHttpResponse ?? dc.originalHttpResponse,
       replacementRules: replacementRules ?? dc.replacementRules,
       generateValidator: generateValidator ?? dc.generateValidator,
+      generateCleanArch: generateCleanArch ?? dc.generateCleanArch,
     );
   }
 
@@ -428,6 +444,9 @@ class SWPConfig {
   /// Set `true` to generate validator for freezed.
   final bool generateValidator;
 
+  /// Generate clean architecture
+  final GenerateCleanArch? generateCleanArch;
+
   /// Convert [SWPConfig] to [GeneratorConfig]
   GeneratorConfig toGeneratorConfig() {
     return GeneratorConfig(
@@ -449,6 +468,7 @@ class SWPConfig {
       originalHttpResponse: originalHttpResponse,
       replacementRules: replacementRules,
       generateValidator: generateValidator,
+      generateCleanArch: generateCleanArch,
     );
   }
 
@@ -469,4 +489,24 @@ class SWPConfig {
       replacementRules: replacementRules,
     );
   }
+}
+
+class GenerateCleanArch {
+  GenerateCleanArch({
+    required this.baseFolder,
+    this.folderMapping,
+    this.ignoreClient,
+  });
+
+  factory GenerateCleanArch.fromYaml(YamlMap map) {
+    return GenerateCleanArch(
+      baseFolder: map['base_folder'] as String? ?? 'lib/src/features',
+      folderMapping: map['folder_mapping'] as YamlMap?,
+      ignoreClient: map['ignore_client'] as YamlList?,
+    );
+  }
+
+  final YamlMap? folderMapping;
+  final YamlList? ignoreClient;
+  final String baseFolder;
 }

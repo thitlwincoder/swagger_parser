@@ -79,6 +79,14 @@ class Generator {
       if (exportFile != null) exportFile,
     ];
 
+    if (config.generateCleanArch != null) {
+      files.addAll([
+        ...restClients.map(fillController.fillRepoContent),
+        ...restClients.map(fillController.fillRepoImplContent),
+        ...restClients.map(fillController.fillUseCaseContent),
+      ]);
+    }
+
     return files;
   }
 

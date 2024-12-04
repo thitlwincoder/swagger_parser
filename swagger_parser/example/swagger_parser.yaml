@@ -2,10 +2,10 @@ swagger_parser:
   # You must provide the file path and/or url to the OpenApi schema.
 
   # Sets the OpenApi schema path directory for api definition.
-  schema_path: schemes/openapi.json
+  schema_path: openapi.json
 
   # Required. Sets output directory for generated files (Clients and DTOs).
-  output_directory: lib/api
+  output_directory: lib/
 
   # Optional. Set API name for folder and export file
   # If not specified, the file name is used.
@@ -17,7 +17,7 @@ swagger_parser:
 
   # Optional (dart only).
   # Current available serializers are: json_serializable, freezed, dart_mappable.
-  json_serializer: json_serializable
+  json_serializer: freezed
 
   # Optional. Set default content-type for all requests.
   default_content_type: "application/json"
@@ -29,19 +29,19 @@ swagger_parser:
 
   # Optional (dart only). Set 'true' to generate root client
   # with interface and all clients instances.
-  root_client: true
+  root_client: false
 
   # Optional (dart only). Set root client name.
   root_client_name: RestClient
 
   # Optional (dart only). Set 'true' to generate export file.
-  export_file: true
+  export_file: false
 
   # Optional. Set to 'true' to put the all api in its folder.
-  put_in_folder: false
+  put_in_folder: true
 
   # Optional. Set 'true' to put all clients in clients folder.
-  put_clients_in_folder: false
+  put_clients_in_folder: true
 
   # Optional. Set to 'true' to squash all clients in one client.
   merge_clients: false
@@ -51,16 +51,16 @@ swagger_parser:
 
   # Optional. Set 'true' to use only the endpoint path for the method name.
   # Set 'false' to use operationId
-  path_method_name: false
+  path_method_name: true
 
-  # Optional (dart only). Set 'true' to include toJson() in enums. 
+  # Optional (dart only). Set 'true' to include toJson() in enums.
   # If set to false, serialization will use .name instead.
   enums_to_json: false
 
   # Optional. Set 'true' to set enum prefix from parent component.
   enums_parent_prefix: true
 
-  # Optional (dart only). Set 'true' to maintain backwards compatibility 
+  # Optional (dart only). Set 'true' to maintain backwards compatibility
   # when adding new values on the backend.
   unknown_enum_value: true
 
@@ -77,6 +77,13 @@ swagger_parser:
     - pattern: "[0-9]+"
       replacement: ""
 
+  generate_clean_arch:
+    base_folder: lib/src/features
+    folder_mapping:
+      Accounts: "auth"
+    ignore_client:
+      - "file_upload"
+
   # Optional. Skip parameters with names.
   skipped_parameters:
-    - 'X-Some-Token'
+    - "X-Some-Token"

@@ -1,0 +1,3643 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "GiggerAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/v1/accounts/register": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Register",
+                "operationId": "AccountAPIView_register_api_v1_accounts_register_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUp"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/accounts/sign-in": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Sign In",
+                "operationId": "AccountAPIView_sign_in_api_v1_accounts_sign_in_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SignInSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/accounts/verify-otp": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Verify Otp",
+                "operationId": "AccountAPIView_verify_otp_api_v1_accounts_verify_otp_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VerifyOTP"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/accounts/me": {
+            "get": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Me",
+                "operationId": "AccountAPIView_me_api_v1_accounts_me_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccountOut"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/accounts/dev/delete_account": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Delete Account",
+                "operationId": "AccountAPIView_delete_account_api_v1_accounts_dev_delete_account_post",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "email",
+                            "title": "Email"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/accounts/reset-password": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Reset Password",
+                "operationId": "AccountAPIView_reset_password_api_v1_accounts_reset_password_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResetPassword"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/accounts/refresh-tokens": {
+            "post": {
+                "tags": [
+                    "Accounts",
+                    "Accounts"
+                ],
+                "summary": "Accountapiview.Refresh Tokens",
+                "operationId": "AccountAPIView_refresh_tokens_api_v1_accounts_refresh_tokens_post",
+                "parameters": [
+                    {
+                        "name": "refresh_token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Refresh Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/file_upload/": {
+            "post": {
+                "tags": [
+                    "FileUpload"
+                ],
+                "summary": "Upload File",
+                "operationId": "upload_file_api_v1_file_upload__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "file_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FileType"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_file_api_v1_file_upload__post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageUploadResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/file_upload/open/": {
+            "post": {
+                "tags": [
+                    "FileUpload"
+                ],
+                "summary": "Upload File Open",
+                "operationId": "upload_file_open_api_v1_file_upload_open__post",
+                "parameters": [
+                    {
+                        "name": "file_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/FileType"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_file_open_api_v1_file_upload_open__post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageUploadResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/file_upload/video/": {
+            "post": {
+                "tags": [
+                    "FileUpload"
+                ],
+                "summary": "Upload Video",
+                "operationId": "upload_video_api_v1_file_upload_video__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "file_type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/components/schemas/FileType",
+                            "default": "media"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_upload_video_api_v1_file_upload_video__post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageUploadResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/file_upload/delete/": {
+            "post": {
+                "tags": [
+                    "FileUpload"
+                ],
+                "summary": "Delete File From S3 Func",
+                "operationId": "delete_file_from_s3_func_api_v1_file_upload_delete__post",
+                "parameters": [
+                    {
+                        "name": "file_path",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "File Path"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SimpleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/config/": {
+            "get": {
+                "tags": [
+                    "settings"
+                ],
+                "summary": "Get Server Config",
+                "operationId": "get_server_config_api_v1_config__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerConfigOut"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/interests": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Interests",
+                "operationId": "ProfileAPIView_list_interests_api_v1_profiles_interests_get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InterestOut"
+                                    },
+                                    "title": "Response Profileapiview List Interests Api V1 Profiles Interests Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/services": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Services",
+                "operationId": "ProfileAPIView_list_services_api_v1_profiles_services_get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MyServicesOut"
+                                    },
+                                    "title": "Response Profileapiview List Services Api V1 Profiles Services Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/skills": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Skills",
+                "operationId": "ProfileAPIView_list_skills_api_v1_profiles_skills_get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SkillOut"
+                                    },
+                                    "title": "Response Profileapiview List Skills Api V1 Profiles Skills Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.Get Profile",
+                "operationId": "ProfileAPIView_get_profile_api_v1_profiles__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "account_uuid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Account Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.Create Profile",
+                "operationId": "ProfileAPIView_create_profile_api_v1_profiles__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileIn"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}": {
+            "patch": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.Update Profile",
+                "operationId": "ProfileAPIView_update_profile_api_v1_profiles__profile_uuid__patch",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProfileUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/": {
+            "post": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.Create Post",
+                "operationId": "PostAPIView_create_post_api_v1_posts__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/posts/hashtags/": {
+            "get": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.Search Hash Tags",
+                "operationId": "PostAPIView_search_hash_tags_api_v1_posts_hashtags__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/HashTag"
+                                    },
+                                    "title": "Response Postapiview Search Hash Tags Api V1 Posts Hashtags  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/fab/": {
+            "get": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.List Self Posts",
+                "operationId": "PostAPIView_list_self_posts_api_v1_posts_fab__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_PostOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/{post_uuid}": {
+            "delete": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.Delete Post",
+                "operationId": "PostAPIView_delete_post_api_v1_posts__post_uuid__delete",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "post_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Post Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SimpleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.Update Post",
+                "operationId": "PostAPIView_update_post_api_v1_posts__post_uuid__patch",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "post_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Post Uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/recommended-post/": {
+            "get": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.List Recommended Posts For Profile",
+                "operationId": "PostAPIView_list_recommended_posts_for_profile_api_v1_posts_recommended_post__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_PostOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sup/": {
+            "get": {
+                "tags": [
+                    "S'up",
+                    "S'up"
+                ],
+                "summary": "Supapiview.List Sup",
+                "operationId": "SupAPIView_list_sup_api_v1_sup__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_SupOut_"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "S'up",
+                    "S'up"
+                ],
+                "summary": "Supapiview.Create Sup",
+                "operationId": "SupAPIView_create_sup_api_v1_sup__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/gig-list/": {
+            "get": {
+                "tags": [
+                    "GigLists",
+                    "GigLists"
+                ],
+                "summary": "Giglistapiview.List Gig List",
+                "operationId": "GigListAPIView_list_gig_list_api_v1_gig_list__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_GigListOut_"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "GigLists",
+                    "GigLists"
+                ],
+                "summary": "Giglistapiview.Create Gig List",
+                "operationId": "GigListAPIView_create_gig_list_api_v1_gig_list__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GigListCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GigListOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AccountOut": {
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "title": "Is Active"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Date Of Birth"
+                    },
+                    "email_verified": {
+                        "type": "boolean",
+                        "title": "Email Verified"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "email",
+                    "is_active",
+                    "date_of_birth",
+                    "email_verified",
+                    "uuid"
+                ],
+                "title": "AccountOut"
+            },
+            "AchievementIn": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category",
+                    "url"
+                ],
+                "title": "AchievementIn"
+            },
+            "AchievementOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid",
+                        "schema_ui": {
+                            "readonly": true
+                        }
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category",
+                    "url"
+                ],
+                "title": "AchievementOut"
+            },
+            "AvailabilityIn": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "day": {
+                        "type": "integer",
+                        "title": "Day"
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time",
+                        "title": "Start Time"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time",
+                        "title": "End Time"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "day",
+                    "start_time",
+                    "end_time"
+                ],
+                "title": "AvailabilityIn"
+            },
+            "AvailabilityOut": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "day": {
+                        "type": "integer",
+                        "title": "Day"
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "time",
+                        "title": "Start Time"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "time",
+                        "title": "End Time"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "day",
+                    "start_time",
+                    "end_time"
+                ],
+                "title": "AvailabilityOut"
+            },
+            "Body_upload_file_api_v1_file_upload__post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "Body_upload_file_api_v1_file_upload__post"
+            },
+            "Body_upload_file_open_api_v1_file_upload_open__post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "Body_upload_file_open_api_v1_file_upload_open__post"
+            },
+            "Body_upload_video_api_v1_file_upload_video__post": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "Body_upload_video_api_v1_file_upload_video__post"
+            },
+            "ContactIn": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "value",
+                    "type"
+                ],
+                "title": "ContactIn"
+            },
+            "ContactOut": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "value": {
+                        "type": "string",
+                        "title": "Value"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "value",
+                    "type"
+                ],
+                "title": "ContactOut"
+            },
+            "EducationIn": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "url"
+                ],
+                "title": "EducationIn"
+            },
+            "EducationOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "url"
+                ],
+                "title": "EducationOut"
+            },
+            "ExperiencesIn": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category"
+                ],
+                "title": "ExperiencesIn"
+            },
+            "ExperiencesOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category"
+                ],
+                "title": "ExperiencesOut"
+            },
+            "FileType": {
+                "type": "string",
+                "enum": [
+                    "profile",
+                    "cover",
+                    "media"
+                ],
+                "title": "FileType"
+            },
+            "GigListCreate": {
+                "properties": {
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "wage_requested": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Wage Requested"
+                    },
+                    "is_looking_for": {
+                        "type": "boolean",
+                        "title": "Is Looking For"
+                    },
+                    "is_performer": {
+                        "type": "boolean",
+                        "title": "Is Performer"
+                    },
+                    "add_call_to_action": {
+                        "type": "boolean",
+                        "title": "Add Call To Action"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "profile_uuid",
+                    "title",
+                    "thumbnail_url",
+                    "video_url",
+                    "description",
+                    "location",
+                    "hashtags",
+                    "wage_requested",
+                    "is_looking_for",
+                    "is_performer",
+                    "add_call_to_action"
+                ],
+                "title": "GigListCreate"
+            },
+            "GigListOut": {
+                "properties": {
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "title": {
+                        "type": "string",
+                        "title": "Title"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "wage_requested": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Wage Requested"
+                    },
+                    "is_looking_for": {
+                        "type": "boolean",
+                        "title": "Is Looking For"
+                    },
+                    "is_performer": {
+                        "type": "boolean",
+                        "title": "Is Performer"
+                    },
+                    "add_call_to_action": {
+                        "type": "boolean",
+                        "title": "Add Call To Action"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "profile_uuid",
+                    "title",
+                    "thumbnail_url",
+                    "video_url",
+                    "description",
+                    "location",
+                    "hashtags",
+                    "wage_requested",
+                    "is_looking_for",
+                    "is_performer",
+                    "add_call_to_action",
+                    "uuid"
+                ],
+                "title": "GigListOut"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "HashTag": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "title": "HashTag"
+            },
+            "ImageUploadResponse": {
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "title": "Status Code"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "image_path": {
+                        "type": "string",
+                        "title": "Image Path"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status_code",
+                    "message",
+                    "image_path"
+                ],
+                "title": "ImageUploadResponse"
+            },
+            "InterestOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category",
+                    "uuid"
+                ],
+                "title": "InterestOut"
+            },
+            "LocationIn": {
+                "properties": {
+                    "address": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Address"
+                    },
+                    "country": {
+                        "type": "string",
+                        "title": "Country"
+                    },
+                    "city": {
+                        "type": "string",
+                        "title": "City"
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "State"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "address",
+                    "country",
+                    "city",
+                    "state"
+                ],
+                "title": "LocationIn"
+            },
+            "LocationOut": {
+                "properties": {
+                    "address": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Address"
+                    },
+                    "country": {
+                        "type": "string",
+                        "title": "Country"
+                    },
+                    "city": {
+                        "type": "string",
+                        "title": "City"
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "State"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "address",
+                    "country",
+                    "city",
+                    "state",
+                    "uuid"
+                ],
+                "title": "LocationOut"
+            },
+            "MyServicesOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid",
+                        "schema_ui": {
+                            "readonly": true
+                        }
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category"
+                ],
+                "title": "MyServicesOut"
+            },
+            "PaginatedResponse_GigListOut_": {
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit",
+                        "default": 50
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "title": "Offset"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/GigListOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "offset",
+                    "total",
+                    "items"
+                ],
+                "title": "PaginatedResponse[GigListOut]"
+            },
+            "PaginatedResponse_PostOut_": {
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit",
+                        "default": 50
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "title": "Offset"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/PostOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "offset",
+                    "total",
+                    "items"
+                ],
+                "title": "PaginatedResponse[PostOut]"
+            },
+            "PaginatedResponse_SupOut_": {
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit",
+                        "default": 50
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "title": "Offset"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/SupOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "offset",
+                    "total",
+                    "items"
+                ],
+                "title": "PaginatedResponse[SupOut]"
+            },
+            "PostCreate": {
+                "properties": {
+                    "post_title": {
+                        "type": "string",
+                        "title": "Post Title"
+                    },
+                    "caption": {
+                        "type": "string",
+                        "title": "Caption"
+                    },
+                    "music_title": {
+                        "type": "string",
+                        "title": "Music Title"
+                    },
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "is_private": {
+                        "type": "boolean",
+                        "title": "Is Private"
+                    },
+                    "is_membership_only": {
+                        "type": "boolean",
+                        "title": "Is Membership Only"
+                    },
+                    "is_only_for_followers": {
+                        "type": "boolean",
+                        "title": "Is Only For Followers"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "tagged_profiles": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "is_draft": {
+                        "type": "boolean",
+                        "title": "Is Draft",
+                        "default": false
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "post_title",
+                    "caption",
+                    "music_title",
+                    "profile_uuid",
+                    "is_private",
+                    "is_membership_only",
+                    "is_only_for_followers",
+                    "video_url",
+                    "thumbnail_url",
+                    "hashtags",
+                    "tagged_profiles",
+                    "location"
+                ],
+                "title": "PostCreate"
+            },
+            "PostOut": {
+                "properties": {
+                    "post_title": {
+                        "type": "string",
+                        "title": "Post Title"
+                    },
+                    "caption": {
+                        "type": "string",
+                        "title": "Caption"
+                    },
+                    "music_title": {
+                        "type": "string",
+                        "title": "Music Title"
+                    },
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "is_private": {
+                        "type": "boolean",
+                        "title": "Is Private"
+                    },
+                    "is_membership_only": {
+                        "type": "boolean",
+                        "title": "Is Membership Only"
+                    },
+                    "is_only_for_followers": {
+                        "type": "boolean",
+                        "title": "Is Only For Followers"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "tagged_profiles": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "is_draft": {
+                        "type": "boolean",
+                        "title": "Is Draft",
+                        "default": false
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    },
+                    "tagged_profiles_details": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileOut"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles Details"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "post_title",
+                    "caption",
+                    "music_title",
+                    "profile_uuid",
+                    "is_private",
+                    "is_membership_only",
+                    "is_only_for_followers",
+                    "video_url",
+                    "thumbnail_url",
+                    "hashtags",
+                    "tagged_profiles",
+                    "location",
+                    "uuid",
+                    "tagged_profiles_details"
+                ],
+                "title": "PostOut"
+            },
+            "PostUpdate": {
+                "properties": {
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid",
+                        "description": "Post's uuid"
+                    },
+                    "post_title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Post Title"
+                    },
+                    "caption": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Caption"
+                    },
+                    "music_title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Music Title"
+                    },
+                    "is_private": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Private"
+                    },
+                    "is_membership_only": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Membership Only"
+                    },
+                    "is_only_for_followers": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Only For Followers"
+                    },
+                    "video_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Video Url"
+                    },
+                    "thumbnail_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Thumbnail Url"
+                    },
+                    "hashtags": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/HashTag"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Hashtags"
+                    },
+                    "tagged_profiles": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Tagged Profiles"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "location": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Location"
+                    },
+                    "is_draft": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Is Draft"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "profile_uuid",
+                    "uuid"
+                ],
+                "title": "PostUpdate"
+            },
+            "ProfileIn": {
+                "properties": {
+                    "cover_media": {
+                        "type": "string",
+                        "title": "Cover Media"
+                    },
+                    "avatar_media": {
+                        "type": "string",
+                        "title": "Avatar Media"
+                    },
+                    "bio": {
+                        "type": "string",
+                        "title": "Bio"
+                    },
+                    "availability_status": {
+                        "type": "boolean",
+                        "title": "Availability Status"
+                    },
+                    "custom_phrase": {
+                        "type": "string",
+                        "title": "Custom Phrase"
+                    },
+                    "closing_message": {
+                        "type": "string",
+                        "title": "Closing Message"
+                    },
+                    "account_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Account Uuid"
+                    },
+                    "interests": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Interests"
+                    },
+                    "availability": {
+                        "items": {
+                            "$ref": "#/components/schemas/AvailabilityIn"
+                        },
+                        "type": "array",
+                        "title": "Availability"
+                    },
+                    "contacts": {
+                        "items": {
+                            "$ref": "#/components/schemas/ContactIn"
+                        },
+                        "type": "array",
+                        "title": "Contacts"
+                    },
+                    "services": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Services"
+                    },
+                    "experiences": {
+                        "items": {
+                            "$ref": "#/components/schemas/ExperiencesIn"
+                        },
+                        "type": "array",
+                        "title": "Experiences"
+                    },
+                    "skills": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Skills"
+                    },
+                    "educations": {
+                        "items": {
+                            "$ref": "#/components/schemas/EducationIn"
+                        },
+                        "type": "array",
+                        "title": "Educations"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/LocationIn"
+                    },
+                    "social_links": {
+                        "items": {
+                            "$ref": "#/components/schemas/SocialLinkIn"
+                        },
+                        "type": "array",
+                        "title": "Social Links"
+                    },
+                    "achievements": {
+                        "items": {
+                            "$ref": "#/components/schemas/AchievementIn"
+                        },
+                        "type": "array",
+                        "title": "Achievements"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cover_media",
+                    "avatar_media",
+                    "bio",
+                    "availability_status",
+                    "custom_phrase",
+                    "closing_message",
+                    "account_uuid",
+                    "interests",
+                    "availability",
+                    "contacts",
+                    "services",
+                    "experiences",
+                    "skills",
+                    "educations",
+                    "location",
+                    "social_links",
+                    "achievements"
+                ],
+                "title": "ProfileIn"
+            },
+            "ProfileOut": {
+                "properties": {
+                    "cover_media": {
+                        "type": "string",
+                        "title": "Cover Media"
+                    },
+                    "avatar_media": {
+                        "type": "string",
+                        "title": "Avatar Media"
+                    },
+                    "bio": {
+                        "type": "string",
+                        "title": "Bio"
+                    },
+                    "availability_status": {
+                        "type": "boolean",
+                        "title": "Availability Status"
+                    },
+                    "custom_phrase": {
+                        "type": "string",
+                        "title": "Custom Phrase"
+                    },
+                    "closing_message": {
+                        "type": "string",
+                        "title": "Closing Message"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    },
+                    "account_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Account Uuid"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/LocationOut"
+                    },
+                    "interests": {
+                        "items": {
+                            "$ref": "#/components/schemas/InterestOut"
+                        },
+                        "type": "array",
+                        "title": "Interests"
+                    },
+                    "availability": {
+                        "items": {
+                            "$ref": "#/components/schemas/AvailabilityOut"
+                        },
+                        "type": "array",
+                        "title": "Availability"
+                    },
+                    "contacts": {
+                        "items": {
+                            "$ref": "#/components/schemas/ContactOut"
+                        },
+                        "type": "array",
+                        "title": "Contacts"
+                    },
+                    "experiences": {
+                        "items": {
+                            "$ref": "#/components/schemas/ExperiencesOut"
+                        },
+                        "type": "array",
+                        "title": "Experiences"
+                    },
+                    "educations": {
+                        "items": {
+                            "$ref": "#/components/schemas/EducationOut"
+                        },
+                        "type": "array",
+                        "title": "Educations"
+                    },
+                    "skills": {
+                        "items": {
+                            "$ref": "#/components/schemas/SkillOut"
+                        },
+                        "type": "array",
+                        "title": "Skills"
+                    },
+                    "social_links": {
+                        "items": {
+                            "$ref": "#/components/schemas/SocialLinkOut"
+                        },
+                        "type": "array",
+                        "title": "Social Links"
+                    },
+                    "my_services": {
+                        "items": {
+                            "$ref": "#/components/schemas/MyServicesOut"
+                        },
+                        "type": "array",
+                        "title": "My Services"
+                    },
+                    "achievements": {
+                        "items": {
+                            "$ref": "#/components/schemas/AchievementOut"
+                        },
+                        "type": "array",
+                        "title": "Achievements"
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/AccountOut"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cover_media",
+                    "avatar_media",
+                    "bio",
+                    "availability_status",
+                    "custom_phrase",
+                    "closing_message",
+                    "uuid",
+                    "account_uuid",
+                    "location",
+                    "interests",
+                    "availability",
+                    "contacts",
+                    "experiences",
+                    "educations",
+                    "skills",
+                    "social_links",
+                    "my_services",
+                    "achievements",
+                    "account"
+                ],
+                "title": "ProfileOut"
+            },
+            "ProfileUpdate": {
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    },
+                    "cover_media": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Cover Media"
+                    },
+                    "avatar_media": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Avatar Media"
+                    },
+                    "bio": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bio"
+                    },
+                    "availability_status": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Availability Status"
+                    },
+                    "custom_phrase": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Custom Phrase"
+                    },
+                    "closing_message": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Closing Message"
+                    },
+                    "interests": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Interests"
+                    },
+                    "availability": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/AvailabilityIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Availability"
+                    },
+                    "contacts": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/ContactIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Contacts"
+                    },
+                    "services": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Services"
+                    },
+                    "experiences": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/ExperiencesIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Experiences"
+                    },
+                    "skills": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Skills"
+                    },
+                    "educations": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/EducationIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Educations"
+                    },
+                    "location": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/LocationIn"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "social_links": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/SocialLinkIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Social Links"
+                    },
+                    "achievements": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/AchievementIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Achievements"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "uuid"
+                ],
+                "title": "ProfileUpdate"
+            },
+            "RegisterSuccess": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "session_token": {
+                        "type": "string",
+                        "title": "Session Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "session_token"
+                ],
+                "title": "RegisterSuccess"
+            },
+            "ResetPassword": {
+                "properties": {
+                    "old_password": {
+                        "type": "string",
+                        "title": "Old Password"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "confirm_password": {
+                        "type": "string",
+                        "title": "Confirm Password"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "old_password",
+                    "password",
+                    "confirm_password"
+                ],
+                "title": "ResetPassword"
+            },
+            "ServerConfigOut": {
+                "properties": {
+                    "base_url": {
+                        "type": "string",
+                        "title": "Base Url"
+                    },
+                    "cdn_url": {
+                        "type": "string",
+                        "title": "Cdn Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "base_url",
+                    "cdn_url"
+                ],
+                "title": "ServerConfigOut"
+            },
+            "SignIn": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "title": "SignIn"
+            },
+            "SignInSuccess": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "session_token": {
+                        "type": "string",
+                        "title": "Session Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "session_token"
+                ],
+                "title": "SignInSuccess"
+            },
+            "SignUp": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "confirm_password": {
+                        "type": "string",
+                        "title": "Confirm Password"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Date Of Birth"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "password",
+                    "username",
+                    "confirm_password",
+                    "date_of_birth"
+                ],
+                "title": "SignUp"
+            },
+            "SimpleResponse": {
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "title": "Status Code"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status_code",
+                    "message"
+                ],
+                "title": "SimpleResponse"
+            },
+            "SkillOut": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "minLength": 2,
+                        "title": "Name"
+                    },
+                    "category": {
+                        "type": "string",
+                        "title": "Category"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "category",
+                    "uuid"
+                ],
+                "title": "SkillOut"
+            },
+            "SocialLinkIn": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/SocialLinks"
+                    },
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "type",
+                    "url"
+                ],
+                "title": "SocialLinkIn"
+            },
+            "SocialLinkOut": {
+                "properties": {
+                    "uuid": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Uuid"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/SocialLinks"
+                    },
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "type",
+                    "url"
+                ],
+                "title": "SocialLinkOut"
+            },
+            "SocialLinks": {
+                "type": "string",
+                "enum": [
+                    "facebook",
+                    "x",
+                    "instagram",
+                    "linkedin",
+                    "github",
+                    "discord",
+                    "telegram",
+                    "tiktok",
+                    "youtube",
+                    "twitch"
+                ],
+                "title": "SocialLinks"
+            },
+            "SupCreate": {
+                "properties": {
+                    "caption": {
+                        "type": "string",
+                        "maxLength": 150,
+                        "minLength": 2,
+                        "title": "Caption"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "is_membership_only": {
+                        "type": "boolean",
+                        "title": "Is Membership Only"
+                    },
+                    "is_only_for_followers": {
+                        "type": "boolean",
+                        "title": "Is Only For Followers"
+                    },
+                    "tagged_profiles": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "caption",
+                    "video_url",
+                    "thumbnail_url",
+                    "hashtags",
+                    "is_membership_only",
+                    "is_only_for_followers",
+                    "tagged_profiles",
+                    "location",
+                    "profile_uuid"
+                ],
+                "title": "SupCreate"
+            },
+            "SupOut": {
+                "properties": {
+                    "caption": {
+                        "type": "string",
+                        "maxLength": 150,
+                        "minLength": 2,
+                        "title": "Caption"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "title": "Video Url"
+                    },
+                    "thumbnail_url": {
+                        "type": "string",
+                        "title": "Thumbnail Url"
+                    },
+                    "hashtags": {
+                        "items": {
+                            "$ref": "#/components/schemas/HashTag"
+                        },
+                        "type": "array",
+                        "title": "Hashtags"
+                    },
+                    "is_membership_only": {
+                        "type": "boolean",
+                        "title": "Is Membership Only"
+                    },
+                    "is_only_for_followers": {
+                        "type": "boolean",
+                        "title": "Is Only For Followers"
+                    },
+                    "tagged_profiles": {
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles"
+                    },
+                    "lat": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Lat"
+                    },
+                    "long": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Long"
+                    },
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    },
+                    "tagged_profiles_details": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileOut"
+                        },
+                        "type": "array",
+                        "title": "Tagged Profiles Details"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "caption",
+                    "video_url",
+                    "thumbnail_url",
+                    "hashtags",
+                    "is_membership_only",
+                    "is_only_for_followers",
+                    "tagged_profiles",
+                    "location",
+                    "profile_uuid",
+                    "uuid",
+                    "tagged_profiles_details"
+                ],
+                "title": "SupOut"
+            },
+            "TokenOut": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "title": "Access Token"
+                    },
+                    "refresh_token": {
+                        "type": "string",
+                        "title": "Refresh Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "access_token",
+                    "refresh_token"
+                ],
+                "title": "TokenOut"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "VerifyOTP": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "otp": {
+                        "type": "string",
+                        "title": "Otp"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "otp"
+                ],
+                "title": "VerifyOTP"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

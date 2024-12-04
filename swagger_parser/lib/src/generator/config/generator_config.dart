@@ -1,3 +1,4 @@
+import '../../../swagger_parser.dart';
 import '../../parser/model/replacement_rule.dart';
 import '../model/json_serializer.dart';
 import '../model/programming_language.dart';
@@ -24,6 +25,7 @@ class GeneratorConfig {
     this.originalHttpResponse = false,
     this.replacementRules = const [],
     this.generateValidator = false,
+    this.generateCleanArch,
   });
 
   /// Optional. Set API name for folder and export file
@@ -109,4 +111,7 @@ class GeneratorConfig {
 
   /// Optional. Set `true` to generate validator function and prams for freezed.
   final bool generateValidator;
+
+  /// Generate clean architecture
+  final GenerateCleanArch? generateCleanArch;
 }

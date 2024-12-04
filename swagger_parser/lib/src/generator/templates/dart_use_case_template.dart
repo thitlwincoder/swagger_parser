@@ -7,9 +7,10 @@ import '../../utils/type_utils.dart';
 import '../model/programming_language.dart';
 
 /// Provides template for generating dart Retrofit client
-String dartRetrofitClientTemplate({
+String dartUseCaseTemplate({
   required UniversalRestClient restClient,
   required String name,
+  required String repoName,
   required bool markFileAsGenerated,
   required String defaultContentType,
   bool extrasParameterByDefault = false,
@@ -23,17 +24,14 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImpor
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
 ${dartImports(imports: restClient.imports, pathPrefix: '../../../../models/')}
-part '${name.toSnake}.g.dart';
-
-@RestApi()
-abstract class $name {
-  factory $name(Dio dio, {String? baseUrl}) = _$name;
+import '${repoName.toSnake}.dart';
 ''',
   );
   for (final request in restClient.requests) {
     sb.write(
-      _toClientRequest(
+      _toUseCase(
         request,
+        repoName,
         defaultContentType,
         originalHttpResponse: originalHttpResponse,
         extrasParameterByDefault: extrasParameterByDefault,
@@ -41,12 +39,12 @@ abstract class $name {
       ),
     );
   }
-  sb.write('}\n');
   return sb.toString();
 }
 
-String _toClientRequest(
+String _toUseCase(
   UniversalRequest request,
+  String repoName,
   String defaultContentType, {
   required bool originalHttpResponse,
   required bool extrasParameterByDefault,
@@ -58,8 +56,8 @@ String _toClientRequest(
   final sb = StringBuffer(
     '''
 
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ', end: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}${_contentTypeHeader(request, defaultContentType)}@${request.requestType.name.toUpperCase()}('${request.route}')
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
+  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ', end: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}UseCase(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||
@@ -72,6 +70,10 @@ String _toClientRequest(
   for (final parameter in sortedByRequired) {
     sb.write('${_toParameter(parameter)}\n');
   }
+  sb.write(
+    '${request.parameters.isNotEmpty ? 'required' : ''} $repoName repo,\n',
+  );
+
   if (extrasParameterByDefault) {
     sb.write(_addExtraParameter());
   }
@@ -81,10 +83,19 @@ String _toClientRequest(
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||
       dioOptionsParameterByDefault) {
-    sb.write('  });\n');
+    sb.write('  })');
   } else {
-    sb.write(');\n');
+    sb.write(')');
   }
+  sb.writeln(' {\n    return repo.${request.name}(');
+
+  for (final parameter in sortedByRequired) {
+    sb.write('      ${_toConstructor(parameter)}\n');
+  }
+
+  sb
+    ..writeln('    );')
+    ..writeln('  }');
   return sb.toString();
 }
 
@@ -105,10 +116,9 @@ String _fileImport(UniversalRestClient restClient) => restClient.requests.any(
         ? "import 'dart:io';\n\n"
         : '';
 
-String _addExtraParameter() => '    @Extras() Map<String, dynamic>? extras,\n';
+String _addExtraParameter() => '    Map<String, dynamic>? extras,\n';
 
-String _addDioOptionsParameter() =>
-    '    @DioOptions() RequestOptions? options,\n';
+String _addDioOptionsParameter() => '    RequestOptions? options,\n';
 
 String _toParameter(UniversalRequestType parameter) {
   var parameterType = parameter.type.toSuitableType(ProgrammingLanguage.dart);
@@ -124,26 +134,17 @@ String _toParameter(UniversalRequestType parameter) {
   final keywordArguments =
       parameter.type.name!.toCamel.replaceFirst('value', 'value_');
 
-  return "    @${parameter.parameterType.type}(${parameter.name != null && !parameter.parameterType.isBody ? "${parameter.parameterType.isPart ? 'name: ' : ''}'${parameter.name}'" : ''}) "
+  return '    '
       '${_required(parameter.type)}'
       '$parameterType '
       '$keywordArguments${_defaultValue(parameter.type)},';
 }
 
-String _contentTypeHeader(
-  UniversalRequest request,
-  String defaultContentType,
-) {
-  if (request.isMultiPart) {
-    return '@MultiPart()\n  ';
-  }
-  if (request.isFormUrlEncoded) {
-    return '@FormUrlEncoded()\n  ';
-  }
-  if (request.contentType != defaultContentType) {
-    return "@Headers(<String, String>{'Content-Type': '${request.contentType}'})\n  ";
-  }
-  return '';
+String _toConstructor(UniversalRequestType parameter) {
+  final keywordArguments =
+      parameter.type.name!.toCamel.replaceFirst('value', 'value_');
+
+  return '$keywordArguments: $keywordArguments,';
 }
 
 /// ` hide Headers ` for retrofit Headers

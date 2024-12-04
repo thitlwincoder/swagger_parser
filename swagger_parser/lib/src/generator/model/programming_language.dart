@@ -6,9 +6,12 @@ import '../templates/dart_enum_dto_template.dart';
 import '../templates/dart_export_file_template.dart';
 import '../templates/dart_freezed_dto_template.dart';
 import '../templates/dart_json_serializable_dto_template.dart';
+import '../templates/dart_repo_impl_template.dart';
+import '../templates/dart_repo_template.dart';
 import '../templates/dart_retrofit_client_template.dart';
 import '../templates/dart_root_client_template.dart';
 import '../templates/dart_typedef_template.dart';
+import '../templates/dart_use_case_template.dart';
 import '../templates/kotlin_enum_dto_template.dart';
 import '../templates/kotlin_moshi_dto_template.dart';
 import '../templates/kotlin_retrofit_client_template.dart';
@@ -130,6 +133,78 @@ enum ProgrammingLanguage {
             name: name,
             markFileAsGenerated: markFilesAsGenerated,
           ),
+      };
+
+  String repoFileContent(
+    UniversalRestClient restClient,
+    String name, {
+    required bool markFilesAsGenerated,
+    required String defaultContentType,
+    bool extrasParameterByDefault = false,
+    bool dioOptionsParameterByDefault = false,
+    bool originalHttpResponse = false,
+  }) =>
+      switch (this) {
+        dart => dartRepoTemplate(
+            restClient: restClient,
+            name: name,
+            markFileAsGenerated: markFilesAsGenerated,
+            defaultContentType: defaultContentType,
+            extrasParameterByDefault: extrasParameterByDefault,
+            dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            originalHttpResponse: originalHttpResponse,
+          ),
+        kotlin => '',
+      };
+
+  String repoImplFileContent(
+    UniversalRestClient restClient,
+    String name,
+    String repoName,
+    String clientName, {
+    required bool markFilesAsGenerated,
+    required String defaultContentType,
+    bool extrasParameterByDefault = false,
+    bool dioOptionsParameterByDefault = false,
+    bool originalHttpResponse = false,
+  }) =>
+      switch (this) {
+        dart => dartRepoImplTemplate(
+            restClient: restClient,
+            name: name,
+            repoName: repoName,
+            clientName: clientName,
+            markFileAsGenerated: markFilesAsGenerated,
+            defaultContentType: defaultContentType,
+            extrasParameterByDefault: extrasParameterByDefault,
+            dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            originalHttpResponse: originalHttpResponse,
+          ),
+        kotlin => '',
+      };
+
+  String useCaseFileContent(
+    UniversalRestClient restClient,
+    String name,
+    String repoName, {
+    required bool markFilesAsGenerated,
+    required String defaultContentType,
+    bool extrasParameterByDefault = false,
+    bool dioOptionsParameterByDefault = false,
+    bool originalHttpResponse = false,
+  }) =>
+      switch (this) {
+        dart => dartUseCaseTemplate(
+            restClient: restClient,
+            name: name,
+            repoName: repoName,
+            markFileAsGenerated: markFilesAsGenerated,
+            defaultContentType: defaultContentType,
+            extrasParameterByDefault: extrasParameterByDefault,
+            dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            originalHttpResponse: originalHttpResponse,
+          ),
+        kotlin => '',
       };
 
   /// Determines template for generating root client for clients

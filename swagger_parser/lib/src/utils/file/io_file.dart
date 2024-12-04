@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import '../../config/swp_config.dart';
 import '../../generator/model/generated_file.dart';
+import '../../parser/utils/case_utils.dart';
+import '../base_utils.dart';
 
 /// Checks if config exists at [filePath]
 /// Config can be a file provided in arguments,

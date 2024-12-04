@@ -1,3 +1,6 @@
+import 'package:path/path.dart' as p;
+
+import '../config/swp_config.dart';
 import '../generator/model/programming_language.dart';
 import '../parser/swagger_parser_core.dart';
 import '../parser/utils/case_utils.dart';
@@ -31,6 +34,10 @@ String descriptionComment(
     (m) =>
         '${!tabForFirstLine && m.start == 0 ? '' : tab}///${m[1]!.trim().isEmpty ? '' : ' '}${m.start == 0 && m.end == description.length ? m[1] : addDot(m[1])}',
   );
+
+  if (end.trim().isEmpty) {
+    return result;
+  }
 
   return '$result\n$end';
 }
@@ -84,3 +91,22 @@ const _generatedCodeComment = '''
 const _ignoreLintsComment = '''
 // ignore_for_file: type=lint, unused_import
 ''';
+
+String createCleanFolder(GenerateCleanArch arch, String name, String path) {
+  return p.join(
+    arch.baseFolder.replaceFirst('lib/', ''),
+    name.toSnake,
+    path,
+  );
+}
+
+String checkArchMapping(GenerateCleanArch arch, String name) {
+  if (arch.folderMapping != null) {
+    final d = arch.folderMapping![name];
+    if (d != null) {
+      return '$d';
+    }
+  }
+
+  return name;
+}
