@@ -152,10 +152,10 @@ class SWPConfig {
       );
     }
 
-    final mergeClients = yamlMap['mergeClients'];
+    final mergeClients = yamlMap['merge_clients'];
     if (mergeClients is! bool?) {
       throw const ConfigException(
-        "Config parameter 'mergeClients' must be bool.",
+        "Config parameter 'merge_clients' must be bool.",
       );
     }
 
@@ -195,6 +195,8 @@ class SWPConfig {
     final rawJsonSerializer = yamlMap['json_serializer']?.toString();
     if (rawJsonSerializer != null) {
       jsonSerializer = JsonSerializer.fromString(rawJsonSerializer);
+    } else if (rootConfig?.jsonSerializer != null) {
+      jsonSerializer = rootConfig!.jsonSerializer;
     }
 
     final rootClient = yamlMap['root_client'];
