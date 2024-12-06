@@ -11,6 +11,8 @@ class GenerationStatistic {
     required this.totalRequests,
     required this.totalDataClasses,
     required this.timeElapsed,
+    required this.totalRepoClasses,
+    required this.totalUseCaseClasses,
   });
 
   /// Total files
@@ -28,6 +30,12 @@ class GenerationStatistic {
   /// Total data classes
   final int totalDataClasses;
 
+  /// Total repository classes
+  final int totalRepoClasses;
+
+  /// Total use case classes
+  final int totalUseCaseClasses;
+
   /// Time elapsed for generation
   final Duration timeElapsed;
 
@@ -39,5 +47,7 @@ class GenerationStatistic {
         totalRequests: totalRequests + other.totalRequests,
         totalDataClasses: totalDataClasses + other.totalDataClasses,
         timeElapsed: timeElapsed + other.timeElapsed,
+        totalRepoClasses: totalRepoClasses + other.totalRepoClasses,
+        totalUseCaseClasses: totalUseCaseClasses + other.totalUseCaseClasses,
       );
 }

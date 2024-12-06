@@ -3,8 +3,6 @@ import 'package:yaml/yaml.dart';
 import '../generator/config/generator_config.dart';
 import '../generator/model/json_serializer.dart';
 import '../generator/model/programming_language.dart';
-import '../parser/corrector/open_api_corrector.dart';
-import '../parser/parser/open_api_parser.dart';
 import '../parser/swagger_parser_core.dart';
 import 'config_exception.dart';
 
@@ -500,7 +498,7 @@ class GenerateCleanArch {
 
   factory GenerateCleanArch.fromYaml(YamlMap map) {
     return GenerateCleanArch(
-      baseFolder: map['base_folder'] as String? ?? 'lib/src/features',
+      baseFolder: map['base_folder'] as String? ?? 'src/features',
       folderMapping: map['folder_mapping'] as YamlMap?,
       ignoreClient: map['ignore_client'] as YamlList?,
     );

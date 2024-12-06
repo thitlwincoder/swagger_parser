@@ -1,7 +1,4 @@
 import '../../../swagger_parser.dart';
-import '../../parser/model/replacement_rule.dart';
-import '../model/json_serializer.dart';
-import '../model/programming_language.dart';
 
 /// The configuration that the Generator uses
 class GeneratorConfig {

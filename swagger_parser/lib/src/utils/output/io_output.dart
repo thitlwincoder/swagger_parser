@@ -66,7 +66,9 @@ void schemaStatisticsMessage({
     '> $title $version: \n'
     '    ${formatNumber(statistics.totalRestClients)} rest clients, '
     '${formatNumber(statistics.totalRequests)} requests, '
-    '${formatNumber(statistics.totalDataClasses)} data classes.\n'
+    '${formatNumber(statistics.totalDataClasses)} models, '
+    '${formatNumber(statistics.totalRepoClasses)} repos, '
+    '${formatNumber(statistics.totalUseCaseClasses)} use cases.\n'
     '    ${formatNumber(statistics.totalFiles)} files with ${formatNumber(statistics.totalLines)} lines of code.\n'
     '    ${_green}Success (${statistics.timeElapsed.inMilliseconds / 1000} seconds)$_reset\n',
   );
@@ -82,7 +84,9 @@ void summaryStatisticsMessage({
     '${successCount != schemesCount ? '$successCount/$schemesCount' : '$schemesCount'} schemes, '
     '${formatNumber(statistics.totalRestClients)} clients, '
     '${formatNumber(statistics.totalRequests)} requests, '
-    '${formatNumber(statistics.totalDataClasses)} data classes.\n'
+    '${formatNumber(statistics.totalDataClasses)} models, '
+    '${formatNumber(statistics.totalRepoClasses)} repos, '
+    '${formatNumber(statistics.totalUseCaseClasses)} use cases.\n'
     '${formatNumber(statistics.totalFiles)} files with ${formatNumber(statistics.totalLines)} lines of code.\n',
   );
 }

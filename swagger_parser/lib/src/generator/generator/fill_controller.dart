@@ -1,8 +1,6 @@
-import 'package:path/path.dart' as p;
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
-import '../../utils/file/io_file.dart';
 import '../config/generator_config.dart';
 import '../model/generated_file.dart';
 import '../model/programming_language.dart';
@@ -37,31 +35,17 @@ final class FillController {
       );
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
-  GeneratedFile fillRestClientContent(UniversalRestClient restClient) {
+  GeneratedFile fillRestClientContent(UniversalRestClient client) {
     final postfix = config.clientPostfix ?? 'Client';
 
-    String folderName;
-    String fileName;
-    String name;
-
-    final arch = config.generateCleanArch;
-    if (arch != null) {
-      name = checkArchMapping(arch, restClient.name);
-      folderName = createCleanFolder(arch, name, 'data');
-      fileName = '${name}_$postfix'.toSnake;
-    } else {
-      name = restClient.name;
-      folderName = config.putClientsInFolder ? 'clients' : name.toSnake;
-      fileName = config.language == ProgrammingLanguage.dart
-          ? '${name}_$postfix'.toSnake
-          : name.toPascal + postfix.toPascal;
-    }
+    final names = getNames(config, client, postfix: postfix, folder: 'data');
 
     return GeneratedFile(
-      name: '$folderName/$fileName.${config.language.fileExtension}',
+      name:
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
       content: config.language.restClientFileContent(
-        restClient,
-        fileName.toPascal,
+        client,
+        names.fileName.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
         extrasParameterByDefault: config.extrasParameterByDefault,
@@ -72,31 +56,15 @@ final class FillController {
   }
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
-  GeneratedFile fillRepoContent(UniversalRestClient restClient) {
-    const postfix = 'repo';
-
-    String folderName;
-    String fileName;
-    String name;
-
-    final arch = config.generateCleanArch;
-    if (arch != null) {
-      name = checkArchMapping(arch, restClient.name);
-      folderName = createCleanFolder(arch, name, 'domain');
-      fileName = '${name}_$postfix'.toSnake;
-    } else {
-      name = restClient.name;
-      folderName = config.putClientsInFolder ? 'repo' : name.toSnake;
-      fileName = config.language == ProgrammingLanguage.dart
-          ? '${restClient.name}_$postfix'.toSnake
-          : restClient.name.toPascal + postfix.toPascal;
-    }
+  GeneratedFile fillRepoContent(UniversalRestClient client) {
+    final names = getNames(config, client, postfix: 'repo', folder: 'domain');
 
     return GeneratedFile(
-      name: '$folderName/$fileName.${config.language.fileExtension}',
+      name:
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
       content: config.language.repoFileContent(
-        restClient,
-        fileName.toPascal,
+        client,
+        name: names.fileName.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
         extrasParameterByDefault: config.extrasParameterByDefault,
@@ -107,33 +75,18 @@ final class FillController {
   }
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
-  GeneratedFile fillRepoImplContent(UniversalRestClient restClient) {
-    const postfix = 'repo_impl';
-
-    String folderName;
-    String fileName;
-    String name;
-
-    final arch = config.generateCleanArch;
-    if (arch != null) {
-      name = checkArchMapping(arch, restClient.name);
-      folderName = createCleanFolder(arch, name, 'data');
-      fileName = '${name}_$postfix'.toSnake;
-    } else {
-      name = restClient.name;
-      folderName = config.putClientsInFolder ? 'repo' : name.toSnake;
-      fileName = config.language == ProgrammingLanguage.dart
-          ? '${restClient.name}_$postfix'.toSnake
-          : restClient.name.toPascal + postfix.toPascal;
-    }
+  GeneratedFile fillRepoImplContent(UniversalRestClient client) {
+    final names =
+        getNames(config, client, postfix: 'repo_impl', folder: 'data');
 
     return GeneratedFile(
-      name: '$folderName/$fileName.${config.language.fileExtension}',
+      name:
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
       content: config.language.repoImplFileContent(
-        restClient,
-        fileName.toPascal,
-        name.toPascal + 'repo'.toPascal,
-        name.toPascal + 'client'.toPascal,
+        client,
+        name: names.fileName.toPascal,
+        repoName: names.name.toPascal + 'repo'.toPascal,
+        clientName: names.name.toPascal + 'client'.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
         extrasParameterByDefault: config.extrasParameterByDefault,
@@ -144,32 +97,18 @@ final class FillController {
   }
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
-  GeneratedFile fillUseCaseContent(UniversalRestClient restClient) {
+  GeneratedFile fillUseCaseContent(UniversalRestClient client) {
     const postfix = 'use_case';
 
-    String folderName;
-    String fileName;
-    String name;
-
-    final arch = config.generateCleanArch;
-    if (arch != null) {
-      name = checkArchMapping(arch, restClient.name);
-      folderName = createCleanFolder(arch, name, 'domain');
-      fileName = '${name}_$postfix'.toSnake;
-    } else {
-      name = restClient.name;
-      folderName = config.putClientsInFolder ? 'repo' : name.toSnake;
-      fileName = config.language == ProgrammingLanguage.dart
-          ? '${restClient.name}_$postfix'.toSnake
-          : restClient.name.toPascal + postfix.toPascal;
-    }
+    final names = getNames(config, client, postfix: postfix, folder: 'domain');
 
     return GeneratedFile(
-      name: '$folderName/$fileName.${config.language.fileExtension}',
+      name:
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
       content: config.language.useCaseFileContent(
-        restClient,
-        fileName.toPascal,
-        name.toPascal + 'repo'.toPascal,
+        client,
+        name: names.fileName.toPascal,
+        repoName: names.name.toPascal + 'repo'.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
         extrasParameterByDefault: config.extrasParameterByDefault,

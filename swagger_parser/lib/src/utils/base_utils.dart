@@ -1,6 +1,7 @@
 import 'package:path/path.dart' as p;
 
 import '../config/swp_config.dart';
+import '../generator/config/generator_config.dart';
 import '../generator/model/programming_language.dart';
 import '../parser/swagger_parser_core.dart';
 import '../parser/utils/case_utils.dart';
@@ -92,13 +93,13 @@ const _ignoreLintsComment = '''
 // ignore_for_file: type=lint, unused_import
 ''';
 
-String createCleanFolder(GenerateCleanArch arch, String name, String path) {
-  return p.join(
-    arch.baseFolder.replaceFirst('lib/', ''),
-    name.toSnake,
-    path,
-  );
-}
+// String createCleanFolder(GenerateCleanArch arch, String name, String path) {
+//   return p.join(
+//     arch.baseFolder,
+//     name.toSnake,
+//     path,
+//   );
+// }
 
 String checkArchMapping(GenerateCleanArch arch, String name) {
   if (arch.folderMapping != null) {
@@ -109,4 +110,30 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
   }
 
   return name;
+}
+
+({String name, String folderName, String fileName}) getNames(
+  GeneratorConfig config,
+  UniversalRestClient client, {
+  required String postfix,
+  required String folder,
+}) {
+  String folderName;
+  String fileName;
+  String name;
+
+  final arch = config.generateCleanArch;
+  if (arch != null) {
+    name = checkArchMapping(arch, client.name);
+    folderName = p.join(arch.baseFolder, name.toSnake, folder);
+    fileName = '${name}_$postfix'.toSnake;
+  } else {
+    name = client.name;
+    folderName = config.putClientsInFolder ? 'clients' : name.toSnake;
+    fileName = config.language == ProgrammingLanguage.dart
+        ? '${client.name}_$postfix'.toSnake
+        : (client.name + postfix).toPascal;
+  }
+
+  return (name: name, folderName: folderName, fileName: fileName);
 }

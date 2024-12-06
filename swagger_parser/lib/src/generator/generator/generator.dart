@@ -41,6 +41,9 @@ class Generator {
         totalLines: totalLines,
         totalDataClasses: dataClasses.length,
         totalRestClients: restClients.length,
+        totalRepoClasses: restClients.length,
+        totalUseCaseClasses:
+            restClients.fold(0, (v, e) => v + e.requests.length),
         totalRequests: restClients.fold(0, (v, e) => v + e.requests.length),
         timeElapsed: stopwatch.elapsed,
       )

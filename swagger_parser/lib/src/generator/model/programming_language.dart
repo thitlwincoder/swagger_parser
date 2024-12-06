@@ -136,8 +136,8 @@ enum ProgrammingLanguage {
       };
 
   String repoFileContent(
-    UniversalRestClient restClient,
-    String name, {
+    UniversalRestClient restClient, {
+    required String name,
     required bool markFilesAsGenerated,
     required String defaultContentType,
     bool extrasParameterByDefault = false,
@@ -158,12 +158,12 @@ enum ProgrammingLanguage {
       };
 
   String repoImplFileContent(
-    UniversalRestClient restClient,
-    String name,
-    String repoName,
-    String clientName, {
+    UniversalRestClient restClient, {
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required String name,
+    required String repoName,
+    required String clientName,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
     bool originalHttpResponse = false,
@@ -184,9 +184,9 @@ enum ProgrammingLanguage {
       };
 
   String useCaseFileContent(
-    UniversalRestClient restClient,
-    String name,
-    String repoName, {
+    UniversalRestClient restClient, {
+    required String name,
+    required String repoName,
     required bool markFilesAsGenerated,
     required String defaultContentType,
     bool extrasParameterByDefault = false,
