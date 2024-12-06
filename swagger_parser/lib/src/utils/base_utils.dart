@@ -125,7 +125,18 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
   final arch = config.generateCleanArch;
   if (arch != null) {
     name = checkArchMapping(arch, client.name);
-    folderName = p.join(arch.baseFolder, name.toSnake, folder);
+    folderName = config.putInFolder
+        ? p.join(
+            folder,
+            postfix == 'repo' || postfix == 'repo_impl'
+                ? 'repositories'
+                : postfix == 'use_case'
+                    ? 'use_cases'
+                    : postfix == 'provider'
+                        ? 'providers'
+                        : 'clients',
+          )
+        : p.join(arch.baseFolder, name.toSnake, folder);
     fileName = '${name}_$postfix'.toSnake;
   } else {
     name = client.name;

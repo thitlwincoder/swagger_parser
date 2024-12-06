@@ -87,6 +87,7 @@ class Generator {
         ...restClients.map(fillController.fillRepoContent),
         ...restClients.map(fillController.fillRepoImplContent),
         ...restClients.map(fillController.fillUseCaseContent),
+        ...restClients.map(fillController.fillProviderContent),
       ]);
     }
 

@@ -20,19 +20,27 @@ final class FillController {
   final GeneratorConfig config;
 
   /// Return [GeneratedFile] generated from given [UniversalDataClass]
-  GeneratedFile fillDtoContent(UniversalDataClass dataClass) => GeneratedFile(
-        name: 'models/'
-            '${config.language == ProgrammingLanguage.dart ? dataClass.name.toSnake : dataClass.name.toPascal}'
-            '.${config.language.fileExtension}',
-        content: config.language.dtoFileContent(
-          dataClass,
-          jsonSerializer: config.jsonSerializer,
-          enumsToJson: config.enumsToJson,
-          unknownEnumValue: config.unknownEnumValue,
-          markFilesAsGenerated: config.markFilesAsGenerated,
-          generateValidator: config.generateValidator,
-        ),
-      );
+  GeneratedFile fillDtoContent(UniversalDataClass dataClass) {
+    var name = 'models/'
+        '${config.language == ProgrammingLanguage.dart ? dataClass.name.toSnake : dataClass.name.toPascal}'
+        '.${config.language.fileExtension}';
+
+    if (config.putInFolder) {
+      name = 'data/$name';
+    }
+
+    return GeneratedFile(
+      name: name,
+      content: config.language.dtoFileContent(
+        dataClass,
+        jsonSerializer: config.jsonSerializer,
+        enumsToJson: config.enumsToJson,
+        unknownEnumValue: config.unknownEnumValue,
+        markFilesAsGenerated: config.markFilesAsGenerated,
+        generateValidator: config.generateValidator,
+      ),
+    );
+  }
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
   GeneratedFile fillRestClientContent(UniversalRestClient client) {
@@ -51,6 +59,7 @@ final class FillController {
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
         originalHttpResponse: config.originalHttpResponse,
+        putInFolder: config.putInFolder,
       ),
     );
   }
@@ -65,11 +74,12 @@ final class FillController {
       content: config.language.repoFileContent(
         client,
         name: names.fileName.toPascal,
-        markFilesAsGenerated: config.markFilesAsGenerated,
+        putInFolder: config.putInFolder,
         defaultContentType: config.defaultContentType,
+        markFilesAsGenerated: config.markFilesAsGenerated,
+        originalHttpResponse: config.originalHttpResponse,
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
-        originalHttpResponse: config.originalHttpResponse,
       ),
     );
   }
@@ -92,6 +102,7 @@ final class FillController {
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
         originalHttpResponse: config.originalHttpResponse,
+        putInFolder: config.putInFolder,
       ),
     );
   }
@@ -114,6 +125,26 @@ final class FillController {
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
         originalHttpResponse: config.originalHttpResponse,
+        putInFolder: config.putInFolder,
+      ),
+    );
+  }
+
+  /// Return [GeneratedFile] generated from given [UniversalRestClient]
+  GeneratedFile fillProviderContent(UniversalRestClient client) {
+    const postfix = 'provider';
+
+    final names = getNames(config, client, postfix: postfix, folder: 'data');
+
+    return GeneratedFile(
+      name:
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      content: config.language.providerFileContent(
+        client,
+        name: names.name.toSnake,
+        putInFolder: config.putInFolder,
+        markFilesAsGenerated: config.markFilesAsGenerated,
+        dioProviderPath: config.generateCleanArch?.dioProviderPath,
       ),
     );
   }

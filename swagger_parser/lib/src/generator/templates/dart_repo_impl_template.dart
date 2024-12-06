@@ -8,15 +8,16 @@ import '../model/programming_language.dart';
 
 /// Provides template for generating dart Retrofit client
 String dartRepoImplTemplate({
-  required UniversalRestClient restClient,
   required String name,
   required String repoName,
+  required bool putInFolder,
   required String clientName,
   required bool markFileAsGenerated,
   required String defaultContentType,
+  required UniversalRestClient restClient,
+  bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
-  bool originalHttpResponse = false,
 }) {
   final sb = StringBuffer(
     '''
@@ -24,9 +25,9 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImpor
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
-${dartImports(imports: restClient.imports, pathPrefix: '../../../../models/')}
-import '../domain/${repoName.toSnake}.dart';
-import '${clientName.toSnake}.dart';
+${dartImports(imports: restClient.imports, pathPrefix: '${putInFolder ? '../' : '../../../../'}models/')}
+import '${putInFolder ? '../../domain/repositories/' : '../domain/'}${repoName.toSnake}.dart';
+import '${putInFolder ? '../clients/' : ''}${clientName.toSnake}.dart';
 
 class $name implements $repoName {
   $name(this.client);

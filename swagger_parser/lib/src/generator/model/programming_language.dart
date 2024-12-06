@@ -6,6 +6,7 @@ import '../templates/dart_enum_dto_template.dart';
 import '../templates/dart_export_file_template.dart';
 import '../templates/dart_freezed_dto_template.dart';
 import '../templates/dart_json_serializable_dto_template.dart';
+import '../templates/dart_provider_template.dart';
 import '../templates/dart_repo_impl_template.dart';
 import '../templates/dart_repo_template.dart';
 import '../templates/dart_retrofit_client_template.dart';
@@ -108,25 +109,27 @@ enum ProgrammingLanguage {
   String restClientFileContent(
     UniversalRestClient restClient,
     String name, {
+    required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
-    bool originalHttpResponse = false,
   }) =>
       switch (this) {
         dart => dartRetrofitClientTemplate(
-            restClient: restClient,
             name: name,
-            markFileAsGenerated: markFilesAsGenerated,
+            restClient: restClient,
+            putInFolder: putInFolder,
             defaultContentType: defaultContentType,
+            markFileAsGenerated: markFilesAsGenerated,
+            originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
-            originalHttpResponse: originalHttpResponse,
           ),
         kotlin => kotlinRetrofitClientTemplate(
-            restClient: restClient,
             name: name,
+            restClient: restClient,
             markFileAsGenerated: markFilesAsGenerated,
           ),
       };
@@ -136,45 +139,49 @@ enum ProgrammingLanguage {
     required String name,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required bool putInFolder,
+    bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
-    bool originalHttpResponse = false,
   }) =>
       switch (this) {
         dart => dartRepoTemplate(
-            restClient: restClient,
             name: name,
-            markFileAsGenerated: markFilesAsGenerated,
+            restClient: restClient,
+            putInFolder: putInFolder,
             defaultContentType: defaultContentType,
+            markFileAsGenerated: markFilesAsGenerated,
+            originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
-            originalHttpResponse: originalHttpResponse,
           ),
         kotlin => '',
       };
 
   String repoImplFileContent(
     UniversalRestClient restClient, {
-    required bool markFilesAsGenerated,
-    required String defaultContentType,
     required String name,
     required String repoName,
     required String clientName,
+    required bool markFilesAsGenerated,
+    required String defaultContentType,
+    required bool putInFolder,
+    bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
-    bool originalHttpResponse = false,
   }) =>
       switch (this) {
         dart => dartRepoImplTemplate(
-            restClient: restClient,
             name: name,
             repoName: repoName,
+            restClient: restClient,
             clientName: clientName,
-            markFileAsGenerated: markFilesAsGenerated,
+            putInFolder: putInFolder,
             defaultContentType: defaultContentType,
+            markFileAsGenerated: markFilesAsGenerated,
+            originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
-            originalHttpResponse: originalHttpResponse,
           ),
         kotlin => '',
       };
@@ -183,22 +190,42 @@ enum ProgrammingLanguage {
     UniversalRestClient restClient, {
     required String name,
     required String repoName,
+    required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
-    bool originalHttpResponse = false,
   }) =>
       switch (this) {
         dart => dartUseCaseTemplate(
-            restClient: restClient,
             name: name,
             repoName: repoName,
-            markFileAsGenerated: markFilesAsGenerated,
+            restClient: restClient,
+            putInFolder: putInFolder,
             defaultContentType: defaultContentType,
+            markFileAsGenerated: markFilesAsGenerated,
+            originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
-            originalHttpResponse: originalHttpResponse,
+          ),
+        kotlin => '',
+      };
+
+  String providerFileContent(
+    UniversalRestClient restClient, {
+    required String name,
+    required bool putInFolder,
+    required bool markFilesAsGenerated,
+    String? dioProviderPath,
+  }) =>
+      switch (this) {
+        dart => dartProviderTemplate(
+            name: name,
+            restClient: restClient,
+            putInFolder: putInFolder,
+            dioProviderPath: dioProviderPath,
+            markFileAsGenerated: markFilesAsGenerated,
           ),
         kotlin => '',
       };
@@ -206,18 +233,18 @@ enum ProgrammingLanguage {
   /// Determines template for generating root client for clients
   String rootClientFileContent(
     Set<String> clientsNames, {
-    required OpenApiInfo openApiInfo,
     required String name,
     required String postfix,
+    required OpenApiInfo openApiInfo,
     required bool putClientsInFolder,
     required bool markFilesAsGenerated,
   }) =>
       switch (this) {
         dart => dartRootClientTemplate(
-            openApiInfo: openApiInfo,
             name: name,
-            clientsNames: clientsNames,
             postfix: postfix,
+            openApiInfo: openApiInfo,
+            clientsNames: clientsNames,
             putClientsInFolder: putClientsInFolder,
             markFileAsGenerated: markFilesAsGenerated,
           ),
@@ -227,16 +254,16 @@ enum ProgrammingLanguage {
   /// Export file by language
   String exportFileContent({
     required bool markFileAsGenerated,
+    required GeneratedFile? rootClient,
     required List<GeneratedFile> restClients,
     required List<GeneratedFile> dataClasses,
-    required GeneratedFile? rootClient,
   }) =>
       switch (this) {
         dart => dartExportFileTemplate(
-            markFileAsGenerated: markFileAsGenerated,
+            rootClient: rootClient,
             restClients: restClients,
             dataClasses: dataClasses,
-            rootClient: rootClient,
+            markFileAsGenerated: markFileAsGenerated,
           ),
         kotlin => '',
       };

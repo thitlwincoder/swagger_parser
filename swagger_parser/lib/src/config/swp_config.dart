@@ -35,6 +35,7 @@ class SWPConfig {
     this.skippedParameters = const <String>[],
     this.generateValidator = false,
     this.generateCleanArch,
+    this.putInFolder = false,
   });
 
   /// Internal constructor of [SWPConfig]
@@ -64,6 +65,7 @@ class SWPConfig {
     required this.skippedParameters,
     required this.generateValidator,
     required this.generateCleanArch,
+    required this.putInFolder,
   });
 
   /// Creates a [SWPConfig] from [YamlMap].
@@ -233,6 +235,12 @@ class SWPConfig {
         "Config parameter 'put_clients_in_folder' must be bool.",
       );
     }
+    final putInFolder = yamlMap['put_in_folder'];
+    if (putInFolder is! bool?) {
+      throw const ConfigException(
+        "Config parameter 'put_clients_in_folder' must be bool.",
+      );
+    }
 
     final enumsToJson = yamlMap['enums_to_json'];
     if (enumsToJson is! bool?) {
@@ -338,6 +346,7 @@ class SWPConfig {
       replacementRules: replacementRules ?? dc.replacementRules,
       generateValidator: generateValidator ?? dc.generateValidator,
       generateCleanArch: generateCleanArch ?? dc.generateCleanArch,
+      putInFolder: putInFolder ?? dc.putInFolder,
     );
   }
 
@@ -380,6 +389,9 @@ class SWPConfig {
 
   /// Optional. Set `true` to put all clients in clients folder.
   final bool putClientsInFolder;
+
+  /// Optional. Set `true` to group all clients in flutter.
+  final bool putInFolder;
 
   /// DART ONLY
   /// Optional. Set `true` to include toJson() in enums.
@@ -451,6 +463,7 @@ class SWPConfig {
   GeneratorConfig toGeneratorConfig() {
     return GeneratorConfig(
       name: name,
+      putInFolder: putInFolder,
       outputDirectory: outputDirectory,
       language: language,
       jsonSerializer: jsonSerializer,
@@ -496,6 +509,7 @@ class GenerateCleanArch {
     required this.baseFolder,
     this.folderMapping,
     this.ignoreClient,
+    this.dioProviderPath,
   });
 
   factory GenerateCleanArch.fromYaml(YamlMap map) {
@@ -503,10 +517,12 @@ class GenerateCleanArch {
       baseFolder: map['base_folder'] as String? ?? 'src/features',
       folderMapping: map['folder_mapping'] as YamlMap?,
       ignoreClient: map['ignore_client'] as YamlList?,
+      dioProviderPath: map['dio_provider_path'] as String?,
     );
   }
 
   final YamlMap? folderMapping;
   final YamlList? ignoreClient;
   final String baseFolder;
+  final String? dioProviderPath;
 }

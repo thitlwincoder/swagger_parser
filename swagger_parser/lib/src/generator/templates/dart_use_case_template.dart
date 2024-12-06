@@ -11,11 +11,12 @@ String dartUseCaseTemplate({
   required UniversalRestClient restClient,
   required String name,
   required String repoName,
+  required bool putInFolder,
   required bool markFileAsGenerated,
   required String defaultContentType,
+  bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
-  bool originalHttpResponse = false,
 }) {
   final sb = StringBuffer(
     '''
@@ -23,8 +24,8 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImpor
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
-${dartImports(imports: restClient.imports, pathPrefix: '../../../../models/')}
-import '${repoName.toSnake}.dart';
+${dartImports(imports: restClient.imports, pathPrefix: '${putInFolder ? '../../data/' : '../../../../'}models/')}
+import '${putInFolder ? '../repositories/' : ''}${repoName.toSnake}.dart';
 ''',
   );
   for (final request in restClient.requests) {

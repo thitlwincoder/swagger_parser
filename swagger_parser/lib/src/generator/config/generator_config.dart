@@ -23,6 +23,7 @@ class GeneratorConfig {
     this.replacementRules = const [],
     this.generateValidator = false,
     this.generateCleanArch,
+    this.putInFolder = false,
   });
 
   /// Optional. Set API name for folder and export file
@@ -58,6 +59,9 @@ class GeneratorConfig {
 
   /// Optional. Set `true` to put all clients in clients folder.
   final bool putClientsInFolder;
+
+  /// Optional. Set `true` to group all clients in flutter.
+  final bool putInFolder;
 
   /// DART ONLY
   /// Optional. Set `true` to include toJson() in enums.
