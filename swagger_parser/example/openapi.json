@@ -852,6 +852,608 @@
                 }
             }
         },
+        "/api/v1/profiles/{profile_uuid}/recommended-artist/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Profiles For Given Profile",
+                "operationId": "ProfileAPIView_list_profiles_for_given_profile_api_v1_profiles__profile_uuid__recommended_artist__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_ProfileOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.Get Others Profile",
+                "operationId": "ProfileAPIView_get_others_profile_api_v1_profiles__profile_uuid___get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/metadata/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.Get Metadata",
+                "operationId": "ProfileAPIView_get_metadata_api_v1_profiles__profile_uuid__metadata__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileMetaDataOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Followers",
+                "operationId": "ProfileAPIView_list_followers_api_v1_profiles__profile_uuid__followers__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/following/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Following",
+                "operationId": "ProfileAPIView_list_following_api_v1_profiles__profile_uuid__following__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/follow/": {
+            "post": {
+                "tags": [
+                    "Profiles",
+                    "Profiles",
+                    "Follower"
+                ],
+                "summary": "Profileapiview.Request To Follow Profile",
+                "operationId": "ProfileAPIView_request_to_follow_profile_api_v1_profiles__profile_uuid__followers_follow__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "to_follow",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "To Follow"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/unfollow/": {
+            "delete": {
+                "tags": [
+                    "Profiles",
+                    "Profiles",
+                    "Follower"
+                ],
+                "summary": "Profileapiview.Unfollow Profile",
+                "operationId": "ProfileAPIView_unfollow_profile_api_v1_profiles__profile_uuid__followers_unfollow__delete",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "to_unfollow",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "To Unfollow"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/accept/": {
+            "post": {
+                "tags": [
+                    "Profiles",
+                    "Profiles",
+                    "Follower"
+                ],
+                "summary": "Profileapiview.Accept Follow Request",
+                "operationId": "ProfileAPIView_accept_follow_request_api_v1_profiles__profile_uuid__followers_accept__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "to_accept",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "To Accept"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/reject/": {
+            "post": {
+                "tags": [
+                    "Profiles",
+                    "Profiles",
+                    "Follower"
+                ],
+                "summary": "Profileapiview.Reject Follow Request",
+                "operationId": "ProfileAPIView_reject_follow_request_api_v1_profiles__profile_uuid__followers_reject__post",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "rejecter",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Rejecter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/profiles/{profile_uuid}/followers/requests/": {
+            "get": {
+                "tags": [
+                    "Profiles",
+                    "Profiles"
+                ],
+                "summary": "Profileapiview.List Follow Requests",
+                "operationId": "ProfileAPIView_list_follow_requests_api_v1_profiles__profile_uuid__followers_requests__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/posts/": {
             "post": {
                 "tags": [
@@ -983,6 +1585,59 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PaginatedResponse_PostOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/{profile_uuid}/fab/": {
+            "get": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.List Others Fab9",
+                "operationId": "PostAPIView_list_others_fab9_api_v1_posts__profile_uuid__fab__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "profile_uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Profile Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PostOut"
+                                    },
+                                    "title": "Response Postapiview List Others Fab9 Api V1 Posts  Profile Uuid  Fab  Get"
                                 }
                             }
                         }
@@ -1315,10 +1970,95 @@
                     }
                 ]
             }
+        },
+        "/api/v1/gig-list/recommended-gig-list/": {
+            "get": {
+                "tags": [
+                    "GigLists",
+                    "GigLists"
+                ],
+                "summary": "Giglistapiview.List Recommended Gig List For Given Profile",
+                "operationId": "GigListAPIView_list_recommended_gig_list_for_given_profile_api_v1_gig_list_recommended_gig_list__get",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1000,
+                            "minimum": 1,
+                            "description": "Number of items to fetch (1-1000)",
+                            "default": 100,
+                            "title": "Limit"
+                        },
+                        "description": "Number of items to fetch (1-1000)"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of items to skip (0 or more)",
+                            "default": 0,
+                            "title": "Offset"
+                        },
+                        "description": "Number of items to skip (0 or more)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedResponse_GigListOut_"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "AccountFewerDetailsOut": {
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "uuid"
+                ],
+                "title": "AccountFewerDetailsOut"
+            },
             "AccountOut": {
                 "properties": {
                     "username": {
@@ -2222,6 +2962,68 @@
                 ],
                 "title": "PaginatedResponse[PostOut]"
             },
+            "PaginatedResponse_ProfileFewerDetailsOut_": {
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit",
+                        "default": 50
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "title": "Offset"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileFewerDetailsOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "offset",
+                    "total",
+                    "items"
+                ],
+                "title": "PaginatedResponse[ProfileFewerDetailsOut]"
+            },
+            "PaginatedResponse_ProfileOut_": {
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit",
+                        "default": 50
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "title": "Offset"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "offset",
+                    "total",
+                    "items"
+                ],
+                "title": "PaginatedResponse[ProfileOut]"
+            },
             "PaginatedResponse_SupOut_": {
                 "properties": {
                     "limit": {
@@ -2337,6 +3139,19 @@
                         "type": "boolean",
                         "title": "Is Draft",
                         "default": false
+                    },
+                    "position_on_fab_nine": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 9.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Position On Fab Nine"
                     }
                 },
                 "type": "object",
@@ -2440,6 +3255,19 @@
                         "type": "boolean",
                         "title": "Is Draft",
                         "default": false
+                    },
+                    "position_on_fab_nine": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 9.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Position On Fab Nine"
                     },
                     "uuid": {
                         "type": "string",
@@ -2646,6 +3474,19 @@
                             }
                         ],
                         "title": "Is Draft"
+                    },
+                    "position_on_fab_nine": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 9.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Position On Fab Nine"
                     }
                 },
                 "type": "object",
@@ -2654,6 +3495,40 @@
                     "uuid"
                 ],
                 "title": "PostUpdate"
+            },
+            "ProfileFewerDetailsOut": {
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Uuid"
+                    },
+                    "account_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Account Uuid"
+                    },
+                    "cover_media": {
+                        "type": "string",
+                        "title": "Cover Media"
+                    },
+                    "avatar_media": {
+                        "type": "string",
+                        "title": "Avatar Media"
+                    },
+                    "account": {
+                        "$ref": "#/components/schemas/AccountFewerDetailsOut"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "uuid",
+                    "account_uuid",
+                    "cover_media",
+                    "avatar_media",
+                    "account"
+                ],
+                "title": "ProfileFewerDetailsOut"
             },
             "ProfileIn": {
                 "properties": {
@@ -2777,6 +3652,34 @@
                     "achievements"
                 ],
                 "title": "ProfileIn"
+            },
+            "ProfileMetaDataOut": {
+                "properties": {
+                    "followers_count": {
+                        "type": "integer",
+                        "title": "Followers Count"
+                    },
+                    "following_count": {
+                        "type": "integer",
+                        "title": "Following Count"
+                    },
+                    "like_count": {
+                        "type": "integer",
+                        "title": "Like Count"
+                    },
+                    "view_count": {
+                        "type": "integer",
+                        "title": "View Count"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "followers_count",
+                    "following_count",
+                    "like_count",
+                    "view_count"
+                ],
+                "title": "ProfileMetaDataOut"
             },
             "ProfileOut": {
                 "properties": {

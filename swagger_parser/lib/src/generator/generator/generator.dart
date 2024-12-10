@@ -1,5 +1,6 @@
 import '../../parser/swagger_parser_core.dart';
 import '../../utils/file/io_file.dart';
+import 'package:path/path.dart' as p;
 import '../config/generator_config.dart';
 import '../model/generated_file.dart';
 import '../model/generation_statistic.dart';
@@ -55,6 +56,13 @@ class Generator {
   List<GeneratedFile> generateContent() {
     final fillController = FillController(config: config, info: info);
 
+    if (config.generateCleanArch?.ignoreClient != null) {
+      for (final i in config.generateCleanArch!.ignoreClient!) {
+        dataClasses.removeWhere((e) => e.name == i);
+        restClients.removeWhere((e) => e.name == i);
+      }
+    }
+
     final dataClassesFiles =
         dataClasses.map(fillController.fillDtoContent).toList();
     final restClientFiles =
@@ -102,10 +110,7 @@ class Generator {
     totalFiles += files.length;
     for (final file in files) {
       totalLines += RegExp('\n').allMatches(file.content).length;
-      await generateFile(
-        config.outputDirectory,
-        file,
-      );
+      await generateFile(config.outputDirectory, file);
     }
     return (totalFiles, totalLines);
   }

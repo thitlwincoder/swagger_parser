@@ -112,7 +112,30 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
   return name;
 }
 
-({String name, String folderName, String fileName}) getNames(
+String? checkMerge(GeneratorConfig config, String name) {
+  final mergeClients = config.generateCleanArch?.mergeClients;
+
+  if (mergeClients == null) {
+    return null;
+  }
+
+  for (final e in mergeClients.entries) {
+    final v = e.value as List;
+
+    if (v.contains(name)) {
+      return '${e.key}';
+    }
+  }
+
+  return null;
+}
+
+({
+  String name,
+  String folderName,
+  String fileName,
+  String? mergeName,
+}) getNames(
   GeneratorConfig config,
   UniversalRestClient client, {
   required String postfix,
@@ -121,10 +144,13 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
   String folderName;
   String fileName;
   String name;
+  String? mergeName;
 
   final arch = config.generateCleanArch;
   if (arch != null) {
     name = checkArchMapping(arch, client.name);
+    mergeName = checkMerge(config, client.name);
+
     folderName = config.putInFolder
         ? p.join(
             folder,
@@ -136,7 +162,7 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
                         ? 'providers'
                         : 'clients',
           )
-        : p.join(arch.baseFolder, name.toSnake, folder);
+        : '${arch.baseFolder}/${name.toSnake}/$folder';
     fileName = '${name}_$postfix'.toSnake;
   } else {
     name = client.name;
@@ -146,5 +172,23 @@ String checkArchMapping(GenerateCleanArch arch, String name) {
         : (client.name + postfix).toPascal;
   }
 
-  return (name: name, folderName: folderName, fileName: fileName);
+  return (
+    name: name.toSnake,
+    folderName: folderName,
+    fileName: fileName,
+    mergeName: mergeName
+  );
+}
+
+String getImports(
+  Set<String> imports,
+  bool putInFolder,
+  bool isMerge,
+  String putInFolderPath,
+) {
+  return dartImports(
+    imports: imports,
+    pathPrefix:
+        '${putInFolder ? putInFolderPath : '../../../../${isMerge ? '../' : ''}'}models/',
+  );
 }

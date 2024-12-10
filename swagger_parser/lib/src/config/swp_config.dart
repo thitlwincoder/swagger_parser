@@ -510,6 +510,7 @@ class GenerateCleanArch {
     this.folderMapping,
     this.ignoreClient,
     this.dioProviderPath,
+    this.mergeClients,
   });
 
   factory GenerateCleanArch.fromYaml(YamlMap map) {
@@ -517,12 +518,14 @@ class GenerateCleanArch {
       baseFolder: map['base_folder'] as String? ?? 'src/features',
       folderMapping: map['folder_mapping'] as YamlMap?,
       ignoreClient: map['ignore_client'] as YamlList?,
+      mergeClients: map['merge_clients'] as YamlMap?,
       dioProviderPath: map['dio_provider_path'] as String?,
     );
   }
 
   final YamlMap? folderMapping;
   final YamlList? ignoreClient;
+  final YamlMap? mergeClients;
   final String baseFolder;
   final String? dioProviderPath;
 }

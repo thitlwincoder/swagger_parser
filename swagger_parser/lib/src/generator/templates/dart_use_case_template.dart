@@ -8,12 +8,13 @@ import '../model/programming_language.dart';
 
 /// Provides template for generating dart Retrofit client
 String dartUseCaseTemplate({
-  required UniversalRestClient restClient,
   required String name,
+  required bool isMerge,
   required String repoName,
   required bool putInFolder,
   required bool markFileAsGenerated,
   required String defaultContentType,
+  required UniversalRestClient restClient,
   bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
@@ -24,7 +25,7 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImpor
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
-${dartImports(imports: restClient.imports, pathPrefix: '${putInFolder ? '../../data/' : '../../../../'}models/')}
+${getImports(restClient.imports, putInFolder, isMerge, '../../data/')}
 import '${putInFolder ? '../repositories/' : ''}${repoName.toSnake}.dart';
 ''',
   );

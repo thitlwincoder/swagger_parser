@@ -48,18 +48,28 @@ final class FillController {
 
     final names = getNames(config, client, postfix: postfix, folder: 'data');
 
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
     return GeneratedFile(
-      name:
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      name: name,
       content: config.language.restClientFileContent(
         client,
         names.fileName.toPascal,
-        markFilesAsGenerated: config.markFilesAsGenerated,
+        putInFolder: config.putInFolder,
+        isMerge: names.mergeName != null,
         defaultContentType: config.defaultContentType,
+        markFilesAsGenerated: config.markFilesAsGenerated,
+        originalHttpResponse: config.originalHttpResponse,
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
-        originalHttpResponse: config.originalHttpResponse,
-        putInFolder: config.putInFolder,
       ),
     );
   }
@@ -68,13 +78,23 @@ final class FillController {
   GeneratedFile fillRepoContent(UniversalRestClient client) {
     final names = getNames(config, client, postfix: 'repo', folder: 'domain');
 
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
     return GeneratedFile(
-      name:
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      name: name,
       content: config.language.repoFileContent(
         client,
         name: names.fileName.toPascal,
         putInFolder: config.putInFolder,
+        isMerge: names.mergeName != null,
         defaultContentType: config.defaultContentType,
         markFilesAsGenerated: config.markFilesAsGenerated,
         originalHttpResponse: config.originalHttpResponse,
@@ -89,14 +109,23 @@ final class FillController {
     final names =
         getNames(config, client, postfix: 'repo_impl', folder: 'data');
 
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
     return GeneratedFile(
-      name:
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      name: name,
       content: config.language.repoImplFileContent(
         client,
-        name: names.fileName.toPascal,
-        repoName: names.name.toPascal + 'repo'.toPascal,
-        clientName: names.name.toPascal + 'client'.toPascal,
+        mergeName: names.mergeName,
+        name: names.name,
+        fileName: names.fileName.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
         extrasParameterByDefault: config.extrasParameterByDefault,
@@ -113,12 +142,22 @@ final class FillController {
 
     final names = getNames(config, client, postfix: postfix, folder: 'domain');
 
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
     return GeneratedFile(
-      name:
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      name: name,
       content: config.language.useCaseFileContent(
         client,
         name: names.fileName.toPascal,
+        isMerge: names.mergeName != null,
         repoName: names.name.toPascal + 'repo'.toPascal,
         markFilesAsGenerated: config.markFilesAsGenerated,
         defaultContentType: config.defaultContentType,
@@ -136,13 +175,23 @@ final class FillController {
 
     final names = getNames(config, client, postfix: postfix, folder: 'data');
 
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
     return GeneratedFile(
-      name:
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}',
+      name: name,
       content: config.language.providerFileContent(
         client,
         name: names.name.toSnake,
         putInFolder: config.putInFolder,
+        isMerge: names.mergeName != null,
         markFilesAsGenerated: config.markFilesAsGenerated,
         dioProviderPath: config.generateCleanArch?.dioProviderPath,
       ),

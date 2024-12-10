@@ -1,5 +1,7 @@
 include: package:carapacik_lints/core.yaml
 analyzer:
+  errors:
+    avoid_positional_boolean_parameters: ignore
   exclude:
     - 'test/e2e/tests/**'
 linter:

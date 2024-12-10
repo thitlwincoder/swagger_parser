@@ -5,6 +5,7 @@ import '../../utils/base_utils.dart';
 /// Provides template for generating dart Provider
 String dartProviderTemplate({
   required String name,
+  required bool isMerge,
   required bool putInFolder,
   required bool markFileAsGenerated,
   required UniversalRestClient restClient,
@@ -15,10 +16,10 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '${putInFolder ? '../../domain/repositories/' : '../domain/'}${name}_repo.dart';
+import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${name}_repo.dart';
 import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
 import '${putInFolder ? '../repositories/' : ''}${name}_repo_impl.dart';
-${dioProviderPath != null ? "import '$dioProviderPath';" : ''}
+${dioProviderPath != null ? "import '${isMerge ? '../$dioProviderPath' : dioProviderPath}';" : ''}
 
 part '${name}_provider.g.dart';
 

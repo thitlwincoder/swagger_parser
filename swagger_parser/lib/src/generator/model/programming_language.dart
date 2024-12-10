@@ -109,6 +109,7 @@ enum ProgrammingLanguage {
   String restClientFileContent(
     UniversalRestClient restClient,
     String name, {
+    required bool isMerge,
     required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
@@ -119,6 +120,7 @@ enum ProgrammingLanguage {
       switch (this) {
         dart => dartRetrofitClientTemplate(
             name: name,
+            isMerge: isMerge,
             restClient: restClient,
             putInFolder: putInFolder,
             defaultContentType: defaultContentType,
@@ -137,9 +139,10 @@ enum ProgrammingLanguage {
   String repoFileContent(
     UniversalRestClient restClient, {
     required String name,
+    required bool isMerge,
+    required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
-    required bool putInFolder,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -147,6 +150,7 @@ enum ProgrammingLanguage {
       switch (this) {
         dart => dartRepoTemplate(
             name: name,
+            isMerge: isMerge,
             restClient: restClient,
             putInFolder: putInFolder,
             defaultContentType: defaultContentType,
@@ -161,11 +165,11 @@ enum ProgrammingLanguage {
   String repoImplFileContent(
     UniversalRestClient restClient, {
     required String name,
-    required String repoName,
-    required String clientName,
+    required String fileName,
+    required bool putInFolder,
+    required String? mergeName,
     required bool markFilesAsGenerated,
     required String defaultContentType,
-    required bool putInFolder,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -173,9 +177,9 @@ enum ProgrammingLanguage {
       switch (this) {
         dart => dartRepoImplTemplate(
             name: name,
-            repoName: repoName,
+            fileName: fileName,
+            mergeName: mergeName,
             restClient: restClient,
-            clientName: clientName,
             putInFolder: putInFolder,
             defaultContentType: defaultContentType,
             markFileAsGenerated: markFilesAsGenerated,
@@ -189,6 +193,7 @@ enum ProgrammingLanguage {
   String useCaseFileContent(
     UniversalRestClient restClient, {
     required String name,
+    required bool isMerge,
     required String repoName,
     required bool putInFolder,
     required bool markFilesAsGenerated,
@@ -200,6 +205,7 @@ enum ProgrammingLanguage {
       switch (this) {
         dart => dartUseCaseTemplate(
             name: name,
+            isMerge: isMerge,
             repoName: repoName,
             restClient: restClient,
             putInFolder: putInFolder,
@@ -215,6 +221,7 @@ enum ProgrammingLanguage {
   String providerFileContent(
     UniversalRestClient restClient, {
     required String name,
+    required bool isMerge,
     required bool putInFolder,
     required bool markFilesAsGenerated,
     String? dioProviderPath,
@@ -222,6 +229,7 @@ enum ProgrammingLanguage {
       switch (this) {
         dart => dartProviderTemplate(
             name: name,
+            isMerge: isMerge,
             restClient: restClient,
             putInFolder: putInFolder,
             dioProviderPath: dioProviderPath,

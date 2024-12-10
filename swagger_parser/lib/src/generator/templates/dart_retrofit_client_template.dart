@@ -9,6 +9,7 @@ import '../model/programming_language.dart';
 /// Provides template for generating dart Retrofit client
 String dartRetrofitClientTemplate({
   required String name,
+  required bool isMerge,
   required bool putInFolder,
   required bool markFileAsGenerated,
   required String defaultContentType,
@@ -23,7 +24,7 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImpor
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
-${dartImports(imports: restClient.imports, pathPrefix: '${putInFolder ? '../' : '../../../../'}models/')}
+${getImports(restClient.imports, putInFolder, isMerge, '../')}
 part '${name.toSnake}.g.dart';
 
 @RestApi()

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:collection/collection.dart';
 
 import '../../parser/swagger_parser_core.dart';
@@ -9,9 +10,9 @@ import '../model/programming_language.dart';
 /// Provides template for generating dart Retrofit client
 String dartRepoImplTemplate({
   required String name,
-  required String repoName,
+  required String fileName,
   required bool putInFolder,
-  required String clientName,
+  required String? mergeName,
   required bool markFileAsGenerated,
   required String defaultContentType,
   required UniversalRestClient restClient,
@@ -19,20 +20,22 @@ String dartRepoImplTemplate({
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
 }) {
+  final isMerge = mergeName != null;
+
   final sb = StringBuffer(
     '''
 ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImport(restClient)}${_fileImport(
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
-${dartImports(imports: restClient.imports, pathPrefix: '${putInFolder ? '../' : '../../../../'}models/')}
-import '${putInFolder ? '../../domain/repositories/' : '../domain/'}${repoName.toSnake}.dart';
-import '${putInFolder ? '../clients/' : ''}${clientName.toSnake}.dart';
+${getImports(restClient.imports, putInFolder, isMerge, '../')}
+import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${'${name}_repo'}.dart';
+import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
 
-class $name implements $repoName {
-  $name(this.client);
+class $fileName implements ${'${name}Repo'.toPascal} {
+  $fileName(this.client);
 
-  final $clientName client;
+  final ${'${name}Client'.toPascal} client;
 ''',
   );
   for (final request in restClient.requests) {
