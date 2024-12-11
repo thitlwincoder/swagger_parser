@@ -205,7 +205,7 @@ String _parametersToString(List<UniversalType> parameters) {
   return sortedByRequired
       .mapIndexed(
         (i, e) =>
-            '\n${i != 0 && (e.description?.isNotEmpty ?? false) ? '\n' : ''}${descriptionComment(e.description, tab: '    ')}'
+            '\n${i != 0 && (e.description?.isNotEmpty ?? false) ? '\n' : ''}${descriptionComment(e.description, tab: '    ')}\n'
             '${_jsonKey(e)}    ${_required(e)}'
             '${e.toSuitableType(ProgrammingLanguage.dart)} ${e.name},',
       )
