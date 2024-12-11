@@ -1827,6 +1827,53 @@
                 }
             }
         },
+        "/api/v1/posts/layout/": {
+            "post": {
+                "tags": [
+                    "Posts",
+                    "Posts"
+                ],
+                "summary": "Postapiview.Upsert Post Position Metadata",
+                "operationId": "PostAPIView_upsert_post_position_metadata_api_v1_posts_layout__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PostPositionMetadata"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostPositionMetadata"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/sup/": {
             "get": {
                 "tags": [
@@ -3139,19 +3186,6 @@
                         "type": "boolean",
                         "title": "Is Draft",
                         "default": false
-                    },
-                    "position_on_fab_nine": {
-                        "anyOf": [
-                            {
-                                "type": "integer",
-                                "maximum": 9.0,
-                                "minimum": 1.0
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Position On Fab Nine"
                     }
                 },
                 "type": "object",
@@ -3256,19 +3290,6 @@
                         "title": "Is Draft",
                         "default": false
                     },
-                    "position_on_fab_nine": {
-                        "anyOf": [
-                            {
-                                "type": "integer",
-                                "maximum": 9.0,
-                                "minimum": 1.0
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Position On Fab Nine"
-                    },
                     "uuid": {
                         "type": "string",
                         "format": "uuid",
@@ -3300,6 +3321,36 @@
                     "tagged_profiles_details"
                 ],
                 "title": "PostOut"
+            },
+            "PostPositionMetadata": {
+                "properties": {
+                    "profile_uuid": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Profile Uuid"
+                    },
+                    "layout": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "type": "object",
+                        "title": "Layout",
+                        "description": "Mapping of positions (1-9) to post UUIDs"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "profile_uuid",
+                    "layout"
+                ],
+                "title": "PostPositionMetadata",
+                "example": {
+                    "layout": {
+                        "1": "c9572e3d-a005-471b-bbc8-35103c364057",
+                        "2": "31db2eef-b358-4ae8-bf26-a968fa74447f"
+                    },
+                    "profile_uuid": "c9572e3d-a005-471b-bbc8-35103c364057"
+                }
             },
             "PostUpdate": {
                 "properties": {
@@ -3474,19 +3525,6 @@
                             }
                         ],
                         "title": "Is Draft"
-                    },
-                    "position_on_fab_nine": {
-                        "anyOf": [
-                            {
-                                "type": "integer",
-                                "maximum": 9.0,
-                                "minimum": 1.0
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Position On Fab Nine"
                     }
                 },
                 "type": "object",
