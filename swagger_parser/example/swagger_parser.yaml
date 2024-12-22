@@ -2,7 +2,7 @@ swagger_parser:
   # You must provide the file path and/or url to the OpenApi schema.
 
   # Sets the OpenApi schema path directory for api definition.
-  schema_url: https://api.gigger.art/openapi.json
+  schema_url: https://petstore3.swagger.io/api/v3/openapi.json
 
   # Required. Sets output directory for generated files (Clients and DTOs).
   output_directory: lib/

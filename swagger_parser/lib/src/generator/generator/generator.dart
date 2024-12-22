@@ -1,6 +1,5 @@
 import '../../parser/swagger_parser_core.dart';
 import '../../utils/file/io_file.dart';
-import 'package:path/path.dart' as p;
 import '../config/generator_config.dart';
 import '../model/generated_file.dart';
 import '../model/generation_statistic.dart';
