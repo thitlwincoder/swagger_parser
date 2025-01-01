@@ -258,6 +258,7 @@ enum ProgrammingLanguage {
     UniversalRestClient restClient, {
     required String name,
     required bool isMerge,
+    required bool mockGen,
     required bool putInFolder,
     required bool markFilesAsGenerated,
     String? dioProviderPath,
@@ -266,6 +267,7 @@ enum ProgrammingLanguage {
         dart => dartProviderTemplate(
             name: name,
             isMerge: isMerge,
+            mockGen: mockGen,
             restClient: restClient,
             putInFolder: putInFolder,
             dioProviderPath: dioProviderPath,

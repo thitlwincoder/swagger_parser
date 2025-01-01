@@ -228,6 +228,7 @@ final class FillController {
         putInFolder: config.putInFolder,
         isMerge: names.mergeName != null,
         markFilesAsGenerated: config.markFilesAsGenerated,
+        mockGen: config.generateCleanArch?.mockGen ?? false,
         dioProviderPath: config.generateCleanArch?.dioProviderPath,
       ),
     );

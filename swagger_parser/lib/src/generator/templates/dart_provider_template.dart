@@ -6,6 +6,7 @@ import '../../utils/base_utils.dart';
 String dartProviderTemplate({
   required String name,
   required bool isMerge,
+  required bool mockGen,
   required bool putInFolder,
   required bool markFileAsGenerated,
   required UniversalRestClient restClient,
@@ -18,14 +19,15 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${name}_repo.dart';
 import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
+${mockGen ? "import '${putInFolder ? '../clients/' : ''}${name}_client_mock.dart';" : ''}
 import '${putInFolder ? '../repositories/' : ''}${name}_repo_impl.dart';
-${dioProviderPath != null ? "import '${isMerge ? '../$dioProviderPath' : dioProviderPath}';" : ''}
+${mockGen ? '' : dioProviderPath != null ? "import '${isMerge ? '../$dioProviderPath' : dioProviderPath}';" : ''}
 
 part '${name}_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 ${name.toPascal}Client ${name.toCamel}Client(Ref ref) {
-  return ${name.toPascal}Client(ref.watch(dioProvider));
+${mockGen ? 'return ${name.toPascal}ClientMock();' : 'return ${name.toPascal}Client(ref.watch(dioProvider));'}
 }
 
 @Riverpod(keepAlive: true)
