@@ -1,3 +1,5 @@
+import 'package:yaml/yaml.dart';
+
 import '../../parser/swagger_parser_core.dart';
 import '../model/generated_file.dart';
 import '../model/json_serializer.dart';
@@ -9,6 +11,7 @@ import '../templates/dart_json_serializable_dto_template.dart';
 import '../templates/dart_provider_template.dart';
 import '../templates/dart_repo_impl_template.dart';
 import '../templates/dart_repo_template.dart';
+import '../templates/dart_retrofit_client_mock_template.dart';
 import '../templates/dart_retrofit_client_template.dart';
 import '../templates/dart_root_client_template.dart';
 import '../templates/dart_typedef_template.dart';
@@ -121,6 +124,39 @@ enum ProgrammingLanguage {
         dart => dartRetrofitClientTemplate(
             name: name,
             isMerge: isMerge,
+            restClient: restClient,
+            putInFolder: putInFolder,
+            defaultContentType: defaultContentType,
+            markFileAsGenerated: markFilesAsGenerated,
+            originalHttpResponse: originalHttpResponse,
+            extrasParameterByDefault: extrasParameterByDefault,
+            dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+          ),
+        kotlin => kotlinRetrofitClientTemplate(
+            name: name,
+            restClient: restClient,
+            markFileAsGenerated: markFilesAsGenerated,
+          ),
+      };
+
+  /// Determines template for generating Rest client by language
+  String restClientMockFileContent(
+    UniversalRestClient restClient,
+    String name, {
+    required bool isMerge,
+    required bool putInFolder,
+    required YamlMap mockData,
+    required bool markFilesAsGenerated,
+    required String defaultContentType,
+    bool originalHttpResponse = false,
+    bool extrasParameterByDefault = false,
+    bool dioOptionsParameterByDefault = false,
+  }) =>
+      switch (this) {
+        dart => dartRetrofitClientMockTemplate(
+            name: name,
+            isMerge: isMerge,
+            mockData: mockData,
             restClient: restClient,
             putInFolder: putInFolder,
             defaultContentType: defaultContentType,

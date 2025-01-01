@@ -75,6 +75,39 @@ final class FillController {
   }
 
   /// Return [GeneratedFile] generated from given [UniversalRestClient]
+  GeneratedFile fillClientMockContent(UniversalRestClient client) {
+    const postfix = 'client_mock';
+
+    final names = getNames(config, client, postfix: postfix, folder: 'data');
+
+    String name;
+
+    if (names.mergeName == null) {
+      name =
+          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+    } else {
+      name =
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+    }
+
+    return GeneratedFile(
+      name: name,
+      content: config.language.restClientMockFileContent(
+        client,
+        names.fileName.toPascal,
+        putInFolder: config.putInFolder,
+        isMerge: names.mergeName != null,
+        defaultContentType: config.defaultContentType,
+        markFilesAsGenerated: config.markFilesAsGenerated,
+        originalHttpResponse: config.originalHttpResponse,
+        extrasParameterByDefault: config.extrasParameterByDefault,
+        dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
+        mockData: config.generateCleanArch!.mockData!,
+      ),
+    );
+  }
+
+  /// Return [GeneratedFile] generated from given [UniversalRestClient]
   GeneratedFile fillRepoContent(UniversalRestClient client) {
     final names = getNames(config, client, postfix: 'repo', folder: 'domain');
 

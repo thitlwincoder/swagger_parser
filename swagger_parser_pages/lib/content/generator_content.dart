@@ -91,7 +91,7 @@ class _GeneratorContentState extends State<GeneratorContent> {
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(0xFFc92b16)
-                                        .withOpacity(0.8),
+                                        .withValues(alpha: 0.8),
                                   ),
                                   onPressed: () async {
                                     _fileContent.clear();
