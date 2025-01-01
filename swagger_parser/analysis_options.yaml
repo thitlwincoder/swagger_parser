@@ -2,6 +2,7 @@ include: package:carapacik_lints/core.yaml
 analyzer:
   errors:
     avoid_positional_boolean_parameters: ignore
+    always_put_control_body_on_new_line: ignore
   exclude:
     - 'test/e2e/tests/**'
 linter:

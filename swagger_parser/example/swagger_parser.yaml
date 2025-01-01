@@ -89,17 +89,19 @@ swagger_parser:
         - "GigLists"
         # - "Posts"
     dio_provider_path: "../../../../dio_provider.dart"
-    mock_data:
-      email: "faker.internet.email()"
-      accessToken: "faker.jwt.valid()"
-      refreshToken: "faker.jwt.valid()"
-      sessionToken: "faker.jwt.valid(expiresIn: DateTime.now().add(Duration(minutes: 30)))"
-      uuid: "faker.guid.guid()"
-      username: "faker.internet.userName()"
-      name: "faker.person.name()"
-      image: "faker.image.loremPicsum()"
-      phone: "faker.randomGenerator.fromPattern(['09#########'])"
-      gender: "faker.randomGenerator.boolean()?'Male':'Female'"
+    mock_gen: true
+    # mock_data:
+      # email: "test"
+      # email: "faker.internet.email()"
+      # accessToken: "faker.jwt.valid()"
+      # refreshToken: "faker.jwt.valid()"
+      # sessionToken: "faker.jwt.valid(expiresIn: DateTime.now().add(Duration(minutes: 30)))"
+      # uuid: "faker.guid.guid()"
+      # username: "faker.internet.userName()"
+      # name: "faker.person.name()"
+      # image: "faker.image.loremPicsum()"
+      # phone: "faker.randomGenerator.fromPattern(['09#########'])"
+      # gender: "faker.randomGenerator.boolean()?'Male':'Female'"
 
   # Optional. Skip parameters with names.
   skipped_parameters:

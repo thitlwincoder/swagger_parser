@@ -1,3 +1,5 @@
+import 'package:yaml/yaml.dart';
+
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
@@ -102,7 +104,7 @@ final class FillController {
         originalHttpResponse: config.originalHttpResponse,
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
-        mockData: config.generateCleanArch!.mockData!,
+        mockData: config.generateCleanArch!.mockData ?? YamlMap(),
       ),
     );
   }

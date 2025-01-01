@@ -90,7 +90,7 @@ class Generator {
     ];
 
     if (config.generateCleanArch != null) {
-      if (config.generateCleanArch!.mockData != null) {
+      if (config.generateCleanArch!.mockGen) {
         files.addAll(restClients.map(fillController.fillClientMockContent));
       }
 

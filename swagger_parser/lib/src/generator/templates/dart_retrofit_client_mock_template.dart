@@ -180,7 +180,10 @@ dynamic _genMockValue(
   YamlMap mockData,
 ) {
   if (mockData.containsKey(name)) {
-    return mockData[name];
+    final value = mockData[name];
+    if (value is String) return '"$value"';
+
+    return value;
   }
 
   if (defaultValue != null) {
@@ -191,6 +194,23 @@ dynamic _genMockValue(
   final type = list[list.length - 2];
 
   if (type == 'String') {
+    if (name == 'email') return 'faker.internet.email()';
+    if (name == 'username') return 'faker.internet.userName()';
+    if (name == 'name') return 'faker.person.name()';
+    if (name == 'uuid') return 'faker.guid.guid()';
+    if (name == 'image') return 'faker.image.loremPicsum()';
+    if (name == 'accessToken') return 'faker.jwt.valid()';
+    if (name == 'refreshToken') return 'faker.jwt.valid()';
+    if (name == 'phone') {
+      return "faker.randomGenerator.fromPattern(['09#########'])";
+    }
+    if (name == 'sessionToken') {
+      return 'faker.jwt.valid(expiresIn: DateTime.now().add(Duration(minutes: 30)))';
+    }
+    if (name == 'gender') {
+      return "faker.randomGenerator.boolean()?'Male':'Female'";
+    }
+
     return '""';
   }
 

@@ -512,6 +512,7 @@ class GenerateCleanArch {
     this.dioProviderPath,
     this.mergeClients,
     this.mockData,
+    this.mockGen = false,
   });
 
   factory GenerateCleanArch.fromYaml(YamlMap map) {
@@ -522,6 +523,7 @@ class GenerateCleanArch {
       mergeClients: map['merge_clients'] as YamlMap?,
       dioProviderPath: map['dio_provider_path'] as String?,
       mockData: map['mock_data'] as YamlMap?,
+      mockGen: map['mock_gen'] as bool? ?? false,
     );
   }
 
@@ -531,4 +533,5 @@ class GenerateCleanArch {
   final String baseFolder;
   final String? dioProviderPath;
   final YamlMap? mockData;
+  final bool mockGen;
 }
