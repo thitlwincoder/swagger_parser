@@ -639,13 +639,27 @@
                     "image": {
                         "type": "string",
                         "title": "Image"
+                    },
+                    "rate": {
+                        "type": "number",
+                        "title": "Rate"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "title": "Price"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/CategoryOut"
                     }
                 },
                 "type": "object",
                 "required": [
                     "uuid",
                     "name",
-                    "image"
+                    "image",
+                    "rate",
+                    "price",
+                    "category"
                 ],
                 "title": "SpecialOfferOut"
             },

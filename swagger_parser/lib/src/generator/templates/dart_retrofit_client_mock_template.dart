@@ -179,9 +179,12 @@ dynamic _genMockValue(
   String name,
   YamlMap mockData,
 ) {
+  final list = string.split(' ');
+  final type = list[list.length - 2];
+
   if (mockData.containsKey(name)) {
     final value = mockData[name];
-    if (value is String) return '"$value"';
+    if (type == 'String') return '"$value"';
 
     return value;
   }
@@ -189,9 +192,6 @@ dynamic _genMockValue(
   if (defaultValue != null) {
     return defaultValue;
   }
-
-  final list = string.split(' ');
-  final type = list[list.length - 2];
 
   if (type == 'String') {
     if (name == 'email') return 'faker.internet.email()';
@@ -212,6 +212,10 @@ dynamic _genMockValue(
     }
 
     return '""';
+  }
+
+  if (type == 'int') {
+    return 'faker.randomGenerator.integer(100)';
   }
 
   if (type == 'bool') {

@@ -90,7 +90,9 @@ swagger_parser:
         # - "Posts"
     dio_provider_path: "../../../../dio_provider.dart"
     mock_gen: true
-    # mock_data:
+    mock_data:
+      rate: "faker.randomGenerator.decimal(scale: .2)"
+      category: "CategoryOut(uuid: faker.guid.guid(), name: faker.person.name(), image: faker.image.loremPicsum(), )"
       # email: "test"
       # email: "faker.internet.email()"
       # accessToken: "faker.jwt.valid()"
