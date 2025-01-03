@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -125,14 +127,18 @@ String _getModelMock(
   YamlMap mockData,
 ) {
   final name = type.contains('List') ? type.split('<')[1].split('>')[0] : type;
-  final path = imports.where((e) => e.contains(name.toSnake)).firstOrNull;
+  var path = imports.where((e) => e.contains(name.toSnake)).firstOrNull;
   if (path == null) {
     return '';
   }
 
+  path =
+      'lib/${putInFolder ? 'data' : ''}/${path.replaceAll('../', '').replaceFirst("import '", '').replaceFirst("';", '')}';
+
+  if (!File(path).existsSync()) return '';
+
   final result = parseFile(
-    path:
-        'lib/${putInFolder ? 'data' : ''}/${path.replaceAll('../', '').replaceFirst("import '", '').replaceFirst("';", '')}',
+    path: path,
     featureSet: FeatureSet.latestLanguageVersion(),
   );
   final unit = result.unit;
