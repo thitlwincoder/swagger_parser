@@ -92,18 +92,7 @@ swagger_parser:
     mock_gen: true
     mock_data:
       rate: "faker.randomGenerator.decimal(scale: .2)"
-      category: "CategoryOut(uuid: faker.guid.guid(), name: faker.person.name(), image: faker.image.loremPicsum(), )"
-      # email: "test"
-      # email: "faker.internet.email()"
-      # accessToken: "faker.jwt.valid()"
-      # refreshToken: "faker.jwt.valid()"
-      # sessionToken: "faker.jwt.valid(expiresIn: DateTime.now().add(Duration(minutes: 30)))"
-      # uuid: "faker.guid.guid()"
-      # username: "faker.internet.userName()"
-      # name: "faker.person.name()"
-      # image: "faker.image.loremPicsum()"
-      # phone: "faker.randomGenerator.fromPattern(['09#########'])"
-      # gender: "faker.randomGenerator.boolean()?'Male':'Female'"
+      # category: "CategoryOut(uuid: faker.guid.guid(), name: faker.person.name(), image: faker.image.loremPicsum(), )"
 
   # Optional. Skip parameters with names.
   skipped_parameters:

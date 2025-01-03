@@ -398,6 +398,49 @@
                     }
                 }
             }
+        },
+        "/api/v1/product/detail/{uuid}": {
+            "get": {
+                "tags": [
+                    "Product",
+                    "Product"
+                ],
+                "summary": "Productapiview.Detail",
+                "operationId": "ProductApiView_detail_api_v1_product_detail__uuid__get",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -489,6 +532,55 @@
                 "type": "object",
                 "title": "HTTPValidationError"
             },
+            "ProductOut": {
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "title": "Uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "title": "Price"
+                    },
+                    "rate": {
+                        "type": "number",
+                        "title": "Rate"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "images": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Images"
+                    },
+                    "seller": {
+                        "$ref": "#/components/schemas/SellerOut"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/CategoryOut"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "uuid",
+                    "name",
+                    "price",
+                    "rate",
+                    "description",
+                    "images",
+                    "seller",
+                    "category"
+                ],
+                "title": "ProductOut"
+            },
             "ProfileIn": {
                 "properties": {
                     "name": {
@@ -558,6 +650,34 @@
                     "session_token"
                 ],
                 "title": "RegisterSuccess"
+            },
+            "SellerOut": {
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "title": "Uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "profile": {
+                        "type": "string",
+                        "title": "Profile"
+                    },
+                    "role": {
+                        "type": "string",
+                        "title": "Role"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "uuid",
+                    "name",
+                    "profile",
+                    "role"
+                ],
+                "title": "SellerOut"
             },
             "SignIn": {
                 "properties": {
