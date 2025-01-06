@@ -40,7 +40,7 @@ String descriptionComment(
     return result;
   }
 
-  return '$result\n$end';
+  return '$result\n$end\n';
 }
 
 /// Add dot to string if not exist
