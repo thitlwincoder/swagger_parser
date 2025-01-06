@@ -12,6 +12,7 @@
                     "Auth"
                 ],
                 "summary": "Authapiview.Sign In",
+                "description": "Sign in with email and password\n\nArgs:\n    data: Sign in credentials\n    \nReturns:\n    Session token for the user",
                 "operationId": "AuthApiView_sign_in_api_v1_auth_sign_in_post",
                 "requestBody": {
                     "content": {
@@ -54,6 +55,7 @@
                     "Auth"
                 ],
                 "summary": "Authapiview.Sign Up",
+                "description": "Register a new user\n\nArgs:\n    data: User registration data\n    \nReturns:\n    Session token for the new user",
                 "operationId": "AuthApiView_sign_up_api_v1_auth_sign_up_post",
                 "requestBody": {
                     "content": {
@@ -89,48 +91,6 @@
                 }
             }
         },
-        "/api/v1/auth/forgot_password": {
-            "post": {
-                "tags": [
-                    "Auth",
-                    "Auth"
-                ],
-                "summary": "Authapiview.Forgot Password",
-                "operationId": "AuthApiView_forgot_password_api_v1_auth_forgot_password_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ForgotPassword"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TokenOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/auth/verify_otp": {
             "post": {
                 "tags": [
@@ -138,6 +98,7 @@
                     "Auth"
                 ],
                 "summary": "Authapiview.Verify Otp",
+                "description": "Verify OTP and generate access tokens\n\nArgs:\n    data: OTP verification data\n    user: Currently authenticated user\n    \nReturns:\n    Access and refresh tokens",
                 "operationId": "AuthApiView_verify_otp_api_v1_auth_verify_otp_post",
                 "requestBody": {
                     "content": {
@@ -170,64 +131,48 @@
                             }
                         }
                     }
-                }
-            }
-        },
-        "/api/v1/auth/me": {
-            "get": {
-                "tags": [
-                    "Auth",
-                    "Auth"
-                ],
-                "summary": "Authapiview.Me",
-                "operationId": "AuthApiView_me_api_v1_auth_me_get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccountOut"
-                                }
-                            }
-                        }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
                     }
-                }
-            }
-        },
-        "/api/v1/category/": {
-            "get": {
-                "tags": [
-                    "Category",
-                    "Category"
-                ],
-                "summary": "Categoryapiview.Get",
-                "operationId": "CategoryApiView_get_api_v1_category__get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "items": {
-                                        "$ref": "#/components/schemas/CategoryOut"
-                                    },
-                                    "type": "array",
-                                    "title": "Response Categoryapiview Get Api V1 Category  Get"
-                                }
-                            }
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/v1/profile/": {
+            "get": {
+                "tags": [
+                    "Profile",
+                    "Profile"
+                ],
+                "summary": "Profileapiview.Me",
+                "description": "Get current user profile\n\nArgs:\n    user: Currently authenticated user\n    \nReturns:\n    Current user profile data",
+                "operationId": "ProfileApiView_me_api_v1_profile__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProfileOut"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
                     "Profile",
                     "Profile"
                 ],
                 "summary": "Profileapiview.Create",
+                "description": "Create or update user profile\n\nArgs:\n    data: Profile data including optional profile image\n    user: Currently authenticated user\n    \nReturns:\n    Updated profile data",
                 "operationId": "ProfileApiView_create_api_v1_profile__post",
                 "requestBody": {
                     "content": {
@@ -260,265 +205,17 @@
                             }
                         }
                     }
-                }
-            }
-        },
-        "/api/v1/profile/{uuid}": {
-            "get": {
-                "tags": [
-                    "Profile",
-                    "Profile"
-                ],
-                "summary": "Profileapiview.Get",
-                "operationId": "ProfileApiView_get_api_v1_profile__uuid__get",
-                "parameters": [
+                },
+                "security": [
                     {
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "title": "Uuid"
-                        }
+                        "HTTPBearer": []
                     }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProfileOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "Profile",
-                    "Profile"
-                ],
-                "summary": "Profileapiview.Update",
-                "operationId": "ProfileApiView_update_api_v1_profile__uuid__patch",
-                "parameters": [
-                    {
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "title": "Uuid"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProfileOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/product/special_offer": {
-            "get": {
-                "tags": [
-                    "Product",
-                    "Product"
-                ],
-                "summary": "Productapiview.Special Offer",
-                "operationId": "ProductApiView_special_offer_api_v1_product_special_offer_get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "items": {
-                                        "$ref": "#/components/schemas/SpecialOfferOut"
-                                    },
-                                    "type": "array",
-                                    "title": "Response Productapiview Special Offer Api V1 Product Special Offer Get"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/product/best_seller": {
-            "get": {
-                "tags": [
-                    "Product",
-                    "Product"
-                ],
-                "summary": "Productapiview.Best Seller",
-                "operationId": "ProductApiView_best_seller_api_v1_product_best_seller_get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "items": {
-                                        "$ref": "#/components/schemas/SpecialOfferOut"
-                                    },
-                                    "type": "array",
-                                    "title": "Response Productapiview Best Seller Api V1 Product Best Seller Get"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/product/detail/{uuid}": {
-            "get": {
-                "tags": [
-                    "Product",
-                    "Product"
-                ],
-                "summary": "Productapiview.Detail",
-                "operationId": "ProductApiView_detail_api_v1_product_detail__uuid__get",
-                "parameters": [
-                    {
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "title": "Uuid"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
+                ]
             }
         }
     },
     "components": {
         "schemas": {
-            "AccountOut": {
-                "properties": {
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
-                    },
-                    "email": {
-                        "type": "string",
-                        "title": "Email"
-                    },
-                    "username": {
-                        "type": "string",
-                        "title": "Username"
-                    },
-                    "is_active": {
-                        "type": "boolean",
-                        "title": "Is Active"
-                    },
-                    "email_verified": {
-                        "type": "boolean",
-                        "title": "Email Verified"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "uuid",
-                    "email",
-                    "username",
-                    "is_active",
-                    "email_verified"
-                ],
-                "title": "AccountOut"
-            },
-            "CategoryOut": {
-                "properties": {
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
-                    },
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "image": {
-                        "type": "string",
-                        "title": "Image"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "uuid",
-                    "name",
-                    "image"
-                ],
-                "title": "CategoryOut"
-            },
-            "ForgotPassword": {
-                "properties": {
-                    "password": {
-                        "type": "string",
-                        "title": "Password"
-                    },
-                    "confirm_password": {
-                        "type": "string",
-                        "title": "Confirm Password"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "password",
-                    "confirm_password"
-                ],
-                "title": "ForgotPassword"
-            },
             "HTTPValidationError": {
                 "properties": {
                     "detail": {
@@ -532,105 +229,110 @@
                 "type": "object",
                 "title": "HTTPValidationError"
             },
-            "ProductOut": {
-                "properties": {
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
-                    },
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "price": {
-                        "type": "integer",
-                        "title": "Price"
-                    },
-                    "rate": {
-                        "type": "number",
-                        "title": "Rate"
-                    },
-                    "description": {
-                        "type": "string",
-                        "title": "Description"
-                    },
-                    "images": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array",
-                        "title": "Images"
-                    },
-                    "seller": {
-                        "$ref": "#/components/schemas/SellerOut"
-                    },
-                    "category": {
-                        "$ref": "#/components/schemas/CategoryOut"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "uuid",
-                    "name",
-                    "price",
-                    "rate",
-                    "description",
-                    "images",
-                    "seller",
-                    "category"
-                ],
-                "title": "ProductOut"
-            },
             "ProfileIn": {
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
                     "phone": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Phone"
                     },
                     "gender": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Gender"
+                    },
+                    "profile": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "binary"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Profile"
                     }
                 },
                 "type": "object",
-                "required": [
-                    "name",
-                    "phone",
-                    "gender"
-                ],
-                "title": "ProfileIn"
+                "title": "ProfileIn",
+                "description": "Profile input schema"
             },
             "ProfileOut": {
                 "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Id"
+                    },
                     "name": {
                         "type": "string",
                         "title": "Name"
                     },
-                    "phone": {
+                    "email": {
                         "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "phone": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Phone"
                     },
                     "gender": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
                         "title": "Gender"
                     },
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
+                    "profile": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Profile"
+                    },
+                    "profile_completed": {
+                        "type": "boolean",
+                        "title": "Profile Completed",
+                        "default": false
                     }
                 },
                 "type": "object",
                 "required": [
+                    "id",
                     "name",
-                    "phone",
-                    "gender",
-                    "uuid"
+                    "email"
                 ],
-                "title": "ProfileOut"
+                "title": "ProfileOut",
+                "description": "Profile output schema"
             },
             "RegisterSuccess": {
                 "properties": {
@@ -649,35 +351,8 @@
                     "email",
                     "session_token"
                 ],
-                "title": "RegisterSuccess"
-            },
-            "SellerOut": {
-                "properties": {
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
-                    },
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "profile": {
-                        "type": "string",
-                        "title": "Profile"
-                    },
-                    "role": {
-                        "type": "string",
-                        "title": "Role"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "uuid",
-                    "name",
-                    "profile",
-                    "role"
-                ],
-                "title": "SellerOut"
+                "title": "RegisterSuccess",
+                "description": "Registration response schema"
             },
             "SignIn": {
                 "properties": {
@@ -696,7 +371,8 @@
                     "email",
                     "password"
                 ],
-                "title": "SignIn"
+                "title": "SignIn",
+                "description": "Sign in request schema"
             },
             "SignInSuccess": {
                 "properties": {
@@ -715,17 +391,14 @@
                     "email",
                     "session_token"
                 ],
-                "title": "SignInSuccess"
+                "title": "SignInSuccess",
+                "description": "Sign in response schema"
             },
             "SignUp": {
                 "properties": {
-                    "first_name": {
+                    "name": {
                         "type": "string",
-                        "title": "First Name"
-                    },
-                    "last_name": {
-                        "type": "string",
-                        "title": "Last Name"
+                        "title": "Name"
                     },
                     "email": {
                         "type": "string",
@@ -739,49 +412,12 @@
                 },
                 "type": "object",
                 "required": [
-                    "first_name",
-                    "last_name",
+                    "name",
                     "email",
                     "password"
                 ],
-                "title": "SignUp"
-            },
-            "SpecialOfferOut": {
-                "properties": {
-                    "uuid": {
-                        "type": "string",
-                        "title": "Uuid"
-                    },
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "image": {
-                        "type": "string",
-                        "title": "Image"
-                    },
-                    "rate": {
-                        "type": "number",
-                        "title": "Rate"
-                    },
-                    "price": {
-                        "type": "integer",
-                        "title": "Price"
-                    },
-                    "category": {
-                        "$ref": "#/components/schemas/CategoryOut"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "uuid",
-                    "name",
-                    "image",
-                    "rate",
-                    "price",
-                    "category"
-                ],
-                "title": "SpecialOfferOut"
+                "title": "SignUp",
+                "description": "Sign up request schema"
             },
             "TokenOut": {
                 "properties": {
@@ -799,7 +435,8 @@
                     "access_token",
                     "refresh_token"
                 ],
-                "title": "TokenOut"
+                "title": "TokenOut",
+                "description": "Token response schema"
             },
             "ValidationError": {
                 "properties": {
@@ -851,7 +488,14 @@
                     "otp",
                     "email"
                 ],
-                "title": "VerifyOTP"
+                "title": "VerifyOTP",
+                "description": "OTP verification request schema"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBearer": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     }

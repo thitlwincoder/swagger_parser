@@ -37,7 +37,7 @@ String descriptionComment(
   );
 
   if (end.trim().isEmpty) {
-    return result;
+    return '$result\n';
   }
 
   return '$result\n$end\n';

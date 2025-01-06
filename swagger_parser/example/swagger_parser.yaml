@@ -89,7 +89,7 @@ swagger_parser:
         - "GigLists"
         # - "Posts"
     dio_provider_path: "../../../../dio_provider.dart"
-    mock_gen: true
+    mock_gen: false
     mock_data:
       rate: "faker.randomGenerator.decimal(scale: .2)"
       # category: "CategoryOut(uuid: faker.guid.guid(), name: faker.person.name(), image: faker.image.loremPicsum(), )"
