@@ -1,8 +1,9 @@
 swagger_parser:
   # You must provide the file path and/or url to the OpenApi schema.
 
+  schema_path: openapi.json
   # Sets the OpenApi schema path directory for api definition.
-  schema_url: http://127.0.0.1:8000/openapi.json
+  # schema_url: https://api.gigger.art/openapi.json
 
   # Required. Sets output directory for generated files (Clients and DTOs).
   output_directory: lib/
@@ -36,9 +37,6 @@ swagger_parser:
 
   # Optional (dart only). Set 'true' to generate export file.
   export_file: false
-
-  # Optional. Set to 'true' to put the all api in its folder.
-  put_in_folder: true
 
   # Optional. Set 'true' to put all clients in clients folder.
   put_clients_in_folder: true
@@ -76,6 +74,9 @@ swagger_parser:
     # Example of rule
     - pattern: "[0-9]+"
       replacement: ""
+
+  # Optional. Set to 'true' to put the all api in its folder.
+  put_in_folder: false
 
   generate_clean_arch:
     base_folder: src/features

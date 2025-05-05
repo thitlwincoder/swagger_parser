@@ -1,502 +1,5576 @@
 {
-    "openapi": "3.1.0",
-    "info": {
-        "title": "FastAPI",
-        "version": "0.1.0"
-    },
-    "paths": {
-        "/api/v1/auth/sign_in": {
-            "post": {
-                "tags": [
-                    "Auth",
-                    "Auth"
-                ],
-                "summary": "Authapiview.Sign In",
-                "description": "Sign in with email and password\n\nArgs:\n    data: Sign in credentials\n    \nReturns:\n    Session token for the user",
-                "operationId": "AuthApiView_sign_in_api_v1_auth_sign_in_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SignIn"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SignInSuccess"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GiggerAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/accounts/register": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Register",
+        "operationId": "AccountAPIView_register_api_v1_accounts_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUp"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterSuccess"
                 }
+              }
             }
-        },
-        "/api/v1/auth/sign_up": {
-            "post": {
-                "tags": [
-                    "Auth",
-                    "Auth"
-                ],
-                "summary": "Authapiview.Sign Up",
-                "description": "Register a new user\n\nArgs:\n    data: User registration data\n    \nReturns:\n    Session token for the new user",
-                "operationId": "AuthApiView_sign_up_api_v1_auth_sign_up_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SignUp"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RegisterSuccess"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
+              }
             }
-        },
-        "/api/v1/auth/verify_otp": {
-            "post": {
-                "tags": [
-                    "Auth",
-                    "Auth"
-                ],
-                "summary": "Authapiview.Verify Otp",
-                "description": "Verify OTP and generate access tokens\n\nArgs:\n    data: OTP verification data\n    user: Currently authenticated user\n    \nReturns:\n    Access and refresh tokens",
-                "operationId": "AuthApiView_verify_otp_api_v1_auth_verify_otp_post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VerifyOTP"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TokenOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "HTTPBearer": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/profile/": {
-            "get": {
-                "tags": [
-                    "Profile",
-                    "Profile"
-                ],
-                "summary": "Profileapiview.Me",
-                "description": "Get current user profile\n\nArgs:\n    user: Currently authenticated user\n    \nReturns:\n    Current user profile data",
-                "operationId": "ProfileApiView_me_api_v1_profile__get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProfileOut"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "HTTPBearer": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Profile",
-                    "Profile"
-                ],
-                "summary": "Profileapiview.Create",
-                "description": "Create or update user profile\n\nArgs:\n    data: Profile data including optional profile image\n    user: Currently authenticated user\n    \nReturns:\n    Updated profile data",
-                "operationId": "ProfileApiView_create_api_v1_profile__post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ProfileIn"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProfileOut"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "HTTPBearer": []
-                    }
-                ]
-            }
+          }
         }
+      }
     },
-    "components": {
-        "schemas": {
-            "HTTPValidationError": {
-                "properties": {
-                    "detail": {
-                        "items": {
-                            "$ref": "#/components/schemas/ValidationError"
-                        },
-                        "type": "array",
-                        "title": "Detail"
-                    }
-                },
-                "type": "object",
-                "title": "HTTPValidationError"
-            },
-            "ProfileIn": {
-                "properties": {
-                    "phone": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Phone"
-                    },
-                    "gender": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Gender"
-                    },
-                    "profile": {
-                        "anyOf": [
-                            {
-                                "type": "string",
-                                "format": "binary"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Profile"
-                    }
-                },
-                "type": "object",
-                "title": "ProfileIn",
-                "description": "Profile input schema"
-            },
-            "ProfileOut": {
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "title": "Id"
-                    },
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    },
-                    "phone": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Phone"
-                    },
-                    "gender": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Gender"
-                    },
-                    "profile": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
-                        "title": "Profile"
-                    },
-                    "profile_completed": {
-                        "type": "boolean",
-                        "title": "Profile Completed",
-                        "default": false
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "name",
-                    "email"
-                ],
-                "title": "ProfileOut",
-                "description": "Profile output schema"
-            },
-            "RegisterSuccess": {
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    },
-                    "session_token": {
-                        "type": "string",
-                        "title": "Session Token"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "email",
-                    "session_token"
-                ],
-                "title": "RegisterSuccess",
-                "description": "Registration response schema"
-            },
-            "SignIn": {
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    },
-                    "password": {
-                        "type": "string",
-                        "title": "Password"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "email",
-                    "password"
-                ],
-                "title": "SignIn",
-                "description": "Sign in request schema"
-            },
-            "SignInSuccess": {
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    },
-                    "session_token": {
-                        "type": "string",
-                        "title": "Session Token"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "email",
-                    "session_token"
-                ],
-                "title": "SignInSuccess",
-                "description": "Sign in response schema"
-            },
-            "SignUp": {
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "title": "Name"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    },
-                    "password": {
-                        "type": "string",
-                        "title": "Password"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "name",
-                    "email",
-                    "password"
-                ],
-                "title": "SignUp",
-                "description": "Sign up request schema"
-            },
-            "TokenOut": {
-                "properties": {
-                    "access_token": {
-                        "type": "string",
-                        "title": "Access Token"
-                    },
-                    "refresh_token": {
-                        "type": "string",
-                        "title": "Refresh Token"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "access_token",
-                    "refresh_token"
-                ],
-                "title": "TokenOut",
-                "description": "Token response schema"
-            },
-            "ValidationError": {
-                "properties": {
-                    "loc": {
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "type": "string"
-                                },
-                                {
-                                    "type": "integer"
-                                }
-                            ]
-                        },
-                        "type": "array",
-                        "title": "Location"
-                    },
-                    "msg": {
-                        "type": "string",
-                        "title": "Message"
-                    },
-                    "type": {
-                        "type": "string",
-                        "title": "Error Type"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "loc",
-                    "msg",
-                    "type"
-                ],
-                "title": "ValidationError"
-            },
-            "VerifyOTP": {
-                "properties": {
-                    "otp": {
-                        "type": "string",
-                        "title": "Otp"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "otp",
-                    "email"
-                ],
-                "title": "VerifyOTP",
-                "description": "OTP verification request schema"
+    "/api/v1/accounts/sign-in": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Sign In",
+        "operationId": "AccountAPIView_sign_in_api_v1_accounts_sign_in_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignIn"
+              }
             }
+          },
+          "required": true
         },
-        "securitySchemes": {
-            "HTTPBearer": {
-                "type": "http",
-                "scheme": "bearer"
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInSuccess"
+                }
+              }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
         }
+      }
+    },
+    "/api/v1/accounts/reset-password-request": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Reset Password Request",
+        "operationId": "AccountAPIView_reset_password_request_api_v1_accounts_reset_password_request_post",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "title": "Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetRequestSuccess"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/verify-otp": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Verify Otp",
+        "operationId": "AccountAPIView_verify_otp_api_v1_accounts_verify_otp_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyOTP"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/me": {
+      "get": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Me",
+        "operationId": "AccountAPIView_me_api_v1_accounts_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/dev/delete_account": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Delete Account",
+        "operationId": "AccountAPIView_delete_account_api_v1_accounts_dev_delete_account_post",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "title": "Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/reset-password": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Reset Password",
+        "operationId": "AccountAPIView_reset_password_api_v1_accounts_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPassword"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/refresh-tokens": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Refresh Tokens",
+        "operationId": "AccountAPIView_refresh_tokens_api_v1_accounts_refresh_tokens_post",
+        "parameters": [
+          {
+            "name": "refresh_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Refresh Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/forgot-password-request": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Forgot Password Request",
+        "operationId": "AccountAPIView_forgot_password_request_api_v1_accounts_forgot_password_request_post",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "title": "Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetRequestSuccess"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/forgot-password": {
+      "post": {
+        "tags": ["Accounts", "Accounts"],
+        "summary": "Accountapiview.Forgot Password",
+        "operationId": "AccountAPIView_forgot_password_api_v1_accounts_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPassword"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/file_upload/": {
+      "post": {
+        "tags": ["FileUpload"],
+        "summary": "Upload File",
+        "operationId": "upload_file_api_v1_file_upload__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/FileType"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_file_api_v1_file_upload__post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/file_upload/open/": {
+      "post": {
+        "tags": ["FileUpload"],
+        "summary": "Upload File Open",
+        "operationId": "upload_file_open_api_v1_file_upload_open__post",
+        "parameters": [
+          {
+            "name": "file_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/FileType"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_file_open_api_v1_file_upload_open__post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/file_upload/video/": {
+      "post": {
+        "tags": ["FileUpload"],
+        "summary": "Upload Video",
+        "operationId": "upload_video_api_v1_file_upload_video__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/FileType",
+              "default": "media"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_video_api_v1_file_upload_video__post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageUploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/file_upload/delete/": {
+      "post": {
+        "tags": ["FileUpload"],
+        "summary": "Delete File From S3 Func",
+        "operationId": "delete_file_from_s3_func_api_v1_file_upload_delete__post",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/": {
+      "get": {
+        "tags": ["settings"],
+        "summary": "Get Server Config",
+        "operationId": "get_server_config_api_v1_config__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerConfigOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/fcm_token/": {
+      "post": {
+        "tags": ["settings", "settings"],
+        "summary": "Settingapiview.Create Device Token",
+        "operationId": "SettingAPIView_create_device_token_api_v1_config_fcm_token__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceTokenIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceTokenIn"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/config/logout/": {
+      "delete": {
+        "tags": ["settings", "settings"],
+        "summary": "Settingapiview.Logout",
+        "operationId": "SettingAPIView_logout_api_v1_config_logout__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "device_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/notifications/": {
+      "get": {
+        "tags": ["settings", "settings"],
+        "summary": "Settingapiview.Get Notifications",
+        "operationId": "SettingAPIView_get_notifications_api_v1_config_notifications__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationOut"
+                  },
+                  "type": "array",
+                  "title": "Response Settingapiview Get Notifications Api V1 Config Notifications  Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profiles/interests": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List Interests",
+        "operationId": "ProfileAPIView_list_interests_api_v1_profiles_interests_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InterestOut"
+                  },
+                  "title": "Response Profileapiview List Interests Api V1 Profiles Interests Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/services": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List Services",
+        "operationId": "ProfileAPIView_list_services_api_v1_profiles_services_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MyServicesOut"
+                  },
+                  "title": "Response Profileapiview List Services Api V1 Profiles Services Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/skills": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List Skills",
+        "operationId": "ProfileAPIView_list_skills_api_v1_profiles_skills_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SkillOut"
+                  },
+                  "title": "Response Profileapiview List Skills Api V1 Profiles Skills Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Get Profile",
+        "operationId": "ProfileAPIView_get_profile_api_v1_profiles__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Account Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Create Profile",
+        "operationId": "ProfileAPIView_create_profile_api_v1_profiles__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}": {
+      "patch": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Update Profile",
+        "operationId": "ProfileAPIView_update_profile_api_v1_profiles__profile_uuid__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/recommended-artist/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List Profiles For Given Profile",
+        "operationId": "ProfileAPIView_list_profiles_for_given_profile_api_v1_profiles__profile_uuid__recommended_artist__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Number of items to fetch (1-1000)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of items to fetch (1-1000)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of items to skip (0 or more)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of items to skip (0 or more)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ProfileOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Get Others Profile",
+        "operationId": "ProfileAPIView_get_others_profile_api_v1_profiles__profile_uuid___get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/metadata/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Get Metadata",
+        "operationId": "ProfileAPIView_get_metadata_api_v1_profiles__profile_uuid__metadata__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileMetaDataOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/followers/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List My Followers",
+        "operationId": "ProfileAPIView_list_my_followers_api_v1_profiles__profile_uuid__followers__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Number of items to fetch (1-1000)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of items to fetch (1-1000)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of items to skip (0 or more)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of items to skip (0 or more)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/following/": {
+      "get": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.List My Following",
+        "operationId": "ProfileAPIView_list_my_following_api_v1_profiles__profile_uuid__following__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Number of items to fetch (1-1000)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of items to fetch (1-1000)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of items to skip (0 or more)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of items to skip (0 or more)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/follow-another-profile/": {
+      "post": {
+        "tags": ["Profiles", "Profiles", "Follower"],
+        "summary": "Profileapiview.Request To Follow Profile",
+        "operationId": "ProfileAPIView_request_to_follow_profile_api_v1_profiles__profile_uuid__follow_another_profile__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "profile_to_follow",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Follow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/unfollow-another-profile/": {
+      "delete": {
+        "tags": ["Profiles", "Profiles", "Follower"],
+        "summary": "Profileapiview.Unfollow Another Profile",
+        "operationId": "ProfileAPIView_unfollow_another_profile_api_v1_profiles__profile_uuid__unfollow_another_profile__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "profile_to_unfollow",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Unfollow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/remove-my-follower/": {
+      "delete": {
+        "tags": ["Profiles", "Profiles", "Follower"],
+        "summary": "Profileapiview.Remove My Follower",
+        "operationId": "ProfileAPIView_remove_my_follower_api_v1_profiles__profile_uuid__remove_my_follower__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "profile_to_remove",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Remove"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/request-to-follow-private-profile/": {
+      "post": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Request To Follow A Private Profile",
+        "operationId": "ProfileAPIView_request_to_follow_a_private_profile_api_v1_profiles__profile_uuid__request_to_follow_private_profile__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "profile_to_request_to_follow",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Request To Follow"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/accept-or-reject-follow-request/": {
+      "post": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Accept Or Reject Follow Request To Private Profile",
+        "operationId": "ProfileAPIView_accept_or_reject_follow_request_to_private_profile_api_v1_profiles__profile_uuid__accept_or_reject_follow_request__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "profile_to_accept_or_reject",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Accept Or Reject"
+            }
+          },
+          {
+            "name": "is_accepted",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "title": "Is Accepted"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{canceler}/cancel-request-to-follow/": {
+      "post": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Cancel Request To Follow For Private Profile",
+        "operationId": "ProfileAPIView_cancel_request_to_follow_for_private_profile_api_v1_profiles__canceler__cancel_request_to_follow__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "canceler",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Canceler"
+            }
+          },
+          {
+            "name": "profile_to_cancel_follow_request",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile To Cancel Follow Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/{profile_uuid}/toggle-private-profile-mode/": {
+      "post": {
+        "tags": ["Profiles", "Profiles"],
+        "summary": "Profileapiview.Toggle Private Profile Model",
+        "operationId": "ProfileAPIView_toggle_private_profile_model_api_v1_profiles__profile_uuid__toggle_private_profile_mode__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "is_private",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "title": "Is Private"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/": {
+      "post": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Create Post",
+        "operationId": "PostAPIView_create_post_api_v1_posts__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/posts/hashtags/": {
+      "get": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Search Hash Tags",
+        "operationId": "PostAPIView_search_hash_tags_api_v1_posts_hashtags__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HashTag"
+                  },
+                  "title": "Response Postapiview Search Hash Tags Api V1 Posts Hashtags  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/fab/": {
+      "get": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.List Self Posts",
+        "operationId": "PostAPIView_list_self_posts_api_v1_posts_fab__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_PostOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/{profile_uuid}/fab/": {
+      "get": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.List Others Fab9",
+        "operationId": "PostAPIView_list_others_fab9_api_v1_posts__profile_uuid__fab__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostOut"
+                  },
+                  "title": "Response Postapiview List Others Fab9 Api V1 Posts  Profile Uuid  Fab  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/{post_uuid}": {
+      "delete": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Delete Post",
+        "operationId": "PostAPIView_delete_post_api_v1_posts__post_uuid__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "post_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Post Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Update Post",
+        "operationId": "PostAPIView_update_post_api_v1_posts__post_uuid__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "post_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Post Uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/recommended-post/": {
+      "get": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.List Recommended Posts For Profile",
+        "operationId": "PostAPIView_list_recommended_posts_for_profile_api_v1_posts_recommended_post__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Number of items to fetch (1-1000)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of items to fetch (1-1000)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of items to skip (0 or more)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of items to skip (0 or more)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_PostOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/posts/layout/": {
+      "post": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Upsert Post Position Metadata",
+        "operationId": "PostAPIView_upsert_post_position_metadata_api_v1_posts_layout__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPositionMetadata"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPositionMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Posts", "Posts"],
+        "summary": "Postapiview.Get Layout",
+        "operationId": "PostAPIView_get_layout_api_v1_posts_layout__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPositionMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sup/": {
+      "post": {
+        "tags": ["S'up", "S'up"],
+        "summary": "Supapiview.Create Sup",
+        "operationId": "SupAPIView_create_sup_api_v1_sup__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["S'up", "S'up"],
+        "summary": "Supapiview.List Profile Having Sup",
+        "description": "ခေါ်တဲ့သူရဲ့ profile အတွက် sup ရှိတဲ့ profileတွေ return ပြန်ပေးမယ်။",
+        "operationId": "SupAPIView_list_profile_having_sup_api_v1_sup__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "created_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/SupCreatedFromEnum",
+              "default": "NONE"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_ProfileFewerDetailsOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sup/{profile_uuid}/": {
+      "get": {
+        "tags": ["S'up", "S'up"],
+        "summary": "Supapiview.List Sup",
+        "description": "profile_uuidသုံးပီး သူတင်ထားတဲ့ sup တေခေါ်လို့ရမယ်။\nUI မှာဆို profile icon ထောက်ပီးနောက်တစ်ဆင့်သွားတဲ့နေရာကခေါ်ရမယ်။",
+        "operationId": "SupAPIView_list_sup_api_v1_sup__profile_uuid___get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          },
+          {
+            "name": "created_from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SupCreatedFromEnum"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SupOut"
+                  },
+                  "title": "Response Supapiview List Sup Api V1 Sup  Profile Uuid   Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sup/{sup_uuid}": {
+      "delete": {
+        "tags": ["S'up", "S'up"],
+        "summary": "Supapiview.Delete Sup",
+        "operationId": "SupAPIView_delete_sup_api_v1_sup__sup_uuid__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "sup_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Sup Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gig-list/": {
+      "get": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.List Gig List",
+        "operationId": "GigListAPIView_list_gig_list_api_v1_gig_list__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_GigListOut_"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.Create Gig List",
+        "operationId": "GigListAPIView_create_gig_list_api_v1_gig_list__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GigListCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GigListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/gig-list/recommended-gig-list/": {
+      "get": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.List Recommended Gig List For Given Profile",
+        "operationId": "GigListAPIView_list_recommended_gig_list_for_given_profile_api_v1_gig_list_recommended_gig_list__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "description": "Number of items to fetch (1-1000)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of items to fetch (1-1000)"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of items to skip (0 or more)",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of items to skip (0 or more)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponse_GigListOut_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gig-list/{gig_list_uuid}/": {
+      "delete": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.Delete Gig List",
+        "operationId": "GigListAPIView_delete_gig_list_api_v1_gig_list__gig_list_uuid___delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "gig_list_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Gig List Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimpleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.Update Gig List",
+        "operationId": "GigListAPIView_update_gig_list_api_v1_gig_list__gig_list_uuid___patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "gig_list_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Gig List Uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GigListUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GigListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gig-list/{profile_uuid}/": {
+      "get": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.List Gig List By Profile",
+        "operationId": "GigListAPIView_list_gig_list_by_profile_api_v1_gig_list__profile_uuid___get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "profile_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Profile Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GigListOut"
+                  },
+                  "title": "Response Giglistapiview List Gig List By Profile Api V1 Gig List  Profile Uuid   Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gig-list/{gig_list_uuid}/star/": {
+      "post": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.Give Un Give A Star",
+        "operationId": "GigListAPIView_give_un_give_a_star_api_v1_gig_list__gig_list_uuid__star__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "gig_list_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Gig List Uuid"
+            }
+          },
+          {
+            "name": "star_giver_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Star Giver Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GigListMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gig-list/{gig_list_uuid}/metadata/": {
+      "post": {
+        "tags": ["GigLists", "GigLists"],
+        "summary": "Giglistapiview.Get Gig List Metadata",
+        "operationId": "GigListAPIView_get_gig_list_metadata_api_v1_gig_list__gig_list_uuid__metadata__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "gig_list_uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Gig List Uuid"
+            }
+          },
+          {
+            "name": "viewer_uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Viewer Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GigListMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  },
+  "components": {
+    "schemas": {
+      "AccountFewerDetailsOut": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["username", "uuid"],
+        "title": "AccountFewerDetailsOut"
+      },
+      "AccountOut": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "date_of_birth": {
+            "type": "string",
+            "format": "date",
+            "title": "Date Of Birth"
+          },
+          "email_verified": {
+            "type": "boolean",
+            "title": "Email Verified"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "email",
+          "is_active",
+          "date_of_birth",
+          "email_verified",
+          "uuid"
+        ],
+        "title": "AccountOut"
+      },
+      "AchievementIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category", "url"],
+        "title": "AchievementIn"
+      },
+      "AchievementOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid",
+            "schema_ui": {
+              "readonly": true
+            }
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category", "url"],
+        "title": "AchievementOut"
+      },
+      "AvailabilityIn": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "day": {
+            "type": "integer",
+            "title": "Day"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "time",
+            "title": "End Time"
+          }
+        },
+        "type": "object",
+        "required": ["day", "start_time", "end_time"],
+        "title": "AvailabilityIn"
+      },
+      "AvailabilityOut": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "day": {
+            "type": "integer",
+            "title": "Day"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "time",
+            "title": "End Time"
+          }
+        },
+        "type": "object",
+        "required": ["day", "start_time", "end_time"],
+        "title": "AvailabilityOut"
+      },
+      "BasicResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": ["message"],
+        "title": "BasicResponse"
+      },
+      "Body_upload_file_api_v1_file_upload__post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": ["file"],
+        "title": "Body_upload_file_api_v1_file_upload__post"
+      },
+      "Body_upload_file_open_api_v1_file_upload_open__post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": ["file"],
+        "title": "Body_upload_file_open_api_v1_file_upload_open__post"
+      },
+      "Body_upload_video_api_v1_file_upload_video__post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": ["file"],
+        "title": "Body_upload_video_api_v1_file_upload_video__post"
+      },
+      "CallToAction": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": ["name", "value"],
+        "title": "CallToAction"
+      },
+      "ContactIn": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": ["value", "type"],
+        "title": "ContactIn"
+      },
+      "ContactOut": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": ["value", "type"],
+        "title": "ContactOut"
+      },
+      "DeviceTokenIn": {
+        "properties": {
+          "fcm_token": {
+            "type": "string",
+            "title": "Fcm Token"
+          },
+          "device_uuid": {
+            "type": "string",
+            "title": "Device Uuid"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["fcm_token", "device_uuid", "profile_uuid"],
+        "title": "DeviceTokenIn"
+      },
+      "EducationIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["name", "url"],
+        "title": "EducationIn"
+      },
+      "EducationOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["name", "url"],
+        "title": "EducationOut"
+      },
+      "ExperiencesIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category"],
+        "title": "ExperiencesIn"
+      },
+      "ExperiencesOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category"],
+        "title": "ExperiencesOut"
+      },
+      "FileType": {
+        "type": "string",
+        "enum": ["profile", "cover", "media"],
+        "title": "FileType"
+      },
+      "ForgotPassword": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "confirm_password": {
+            "type": "string",
+            "title": "Confirm Password"
+          }
+        },
+        "type": "object",
+        "required": ["password", "confirm_password"],
+        "title": "ForgotPassword"
+      },
+      "GigListCreate": {
+        "properties": {
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "gig_list_media": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/GigListMedia"
+            },
+            "type": "object",
+            "title": "Gig List Media",
+            "description": "Gig list media, key is int and  position of media"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "wage_requested": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wage Requested"
+          },
+          "is_looking_for": {
+            "type": "boolean",
+            "title": "Is Looking For"
+          },
+          "is_performer": {
+            "type": "boolean",
+            "title": "Is Performer"
+          },
+          "add_call_to_action": {
+            "type": "boolean",
+            "title": "Add Call To Action"
+          },
+          "call_to_action": {
+            "$ref": "#/components/schemas/CallToAction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_uuid",
+          "title",
+          "thumbnail_url",
+          "gig_list_media",
+          "description",
+          "location",
+          "hashtags",
+          "wage_requested",
+          "is_looking_for",
+          "is_performer",
+          "add_call_to_action",
+          "call_to_action"
+        ],
+        "title": "GigListCreate"
+      },
+      "GigListMedia": {
+        "properties": {
+          "media_url": {
+            "type": "string",
+            "title": "Media Url"
+          },
+          "is_video": {
+            "type": "boolean",
+            "title": "Is Video"
+          }
+        },
+        "type": "object",
+        "required": ["media_url", "is_video"],
+        "title": "GigListMedia"
+      },
+      "GigListMetadata": {
+        "properties": {
+          "has_already_given_star": {
+            "type": "boolean",
+            "title": "Has Already Given Star"
+          },
+          "star_count": {
+            "type": "integer",
+            "title": "Star Count"
+          }
+        },
+        "type": "object",
+        "required": ["has_already_given_star", "star_count"],
+        "title": "GigListMetadata"
+      },
+      "GigListOut": {
+        "properties": {
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "gig_list_media": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/GigListMedia"
+            },
+            "type": "object",
+            "title": "Gig List Media",
+            "description": "Gig list media, key is int and  position of media"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "wage_requested": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wage Requested"
+          },
+          "is_looking_for": {
+            "type": "boolean",
+            "title": "Is Looking For"
+          },
+          "is_performer": {
+            "type": "boolean",
+            "title": "Is Performer"
+          },
+          "add_call_to_action": {
+            "type": "boolean",
+            "title": "Add Call To Action"
+          },
+          "call_to_action": {
+            "$ref": "#/components/schemas/CallToAction"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_uuid",
+          "title",
+          "thumbnail_url",
+          "gig_list_media",
+          "description",
+          "location",
+          "hashtags",
+          "wage_requested",
+          "is_looking_for",
+          "is_performer",
+          "add_call_to_action",
+          "call_to_action",
+          "uuid",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "GigListOut"
+      },
+      "GigListUpdate": {
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "hashtags": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/HashTag"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hashtags"
+          },
+          "wage_requested": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wage Requested"
+          },
+          "is_looking_for": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Looking For"
+          },
+          "is_performer": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Performer"
+          },
+          "add_call_to_action": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Add Call To Action"
+          },
+          "gig_list_media": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/GigListMedia"
+            },
+            "type": "object",
+            "title": "Gig List Media",
+            "description": "Gig list media, key is int and  position of media"
+          },
+          "thumbnail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thumbnail Url"
+          },
+          "call_to_action": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CallToAction"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["uuid", "wage_requested", "gig_list_media"],
+        "title": "GigListUpdate"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HashTag": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["name"],
+        "title": "HashTag"
+      },
+      "ImageUploadResponse": {
+        "properties": {
+          "status_code": {
+            "type": "integer",
+            "title": "Status Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "image_path": {
+            "type": "string",
+            "title": "Image Path"
+          }
+        },
+        "type": "object",
+        "required": ["status_code", "message", "image_path"],
+        "title": "ImageUploadResponse"
+      },
+      "InterestOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category", "uuid"],
+        "title": "InterestOut"
+      },
+      "LocationIn": {
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address"
+          },
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": ["address", "country", "city", "state"],
+        "title": "LocationIn"
+      },
+      "LocationOut": {
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address"
+          },
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "city": {
+            "type": "string",
+            "title": "City"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["address", "country", "city", "state", "uuid"],
+        "title": "LocationOut"
+      },
+      "MyServicesOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid",
+            "schema_ui": {
+              "readonly": true
+            }
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category"],
+        "title": "MyServicesOut"
+      },
+      "NotificationOut": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "data": {
+            "type": "object",
+            "title": "Data"
+          },
+          "notification_type": {
+            "type": "integer",
+            "title": "Notification Type"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "body",
+          "data",
+          "notification_type",
+          "profile_uuid",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "NotificationOut"
+      },
+      "PaginatedResponse_GigListOut_": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/GigListOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": ["offset", "total", "items"],
+        "title": "PaginatedResponse[GigListOut]"
+      },
+      "PaginatedResponse_PostOut_": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PostOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": ["offset", "total", "items"],
+        "title": "PaginatedResponse[PostOut]"
+      },
+      "PaginatedResponse_ProfileFewerDetailsOut_": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProfileFewerDetailsOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": ["offset", "total", "items"],
+        "title": "PaginatedResponse[ProfileFewerDetailsOut]"
+      },
+      "PaginatedResponse_ProfileOut_": {
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProfileOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": ["offset", "total", "items"],
+        "title": "PaginatedResponse[ProfileOut]"
+      },
+      "PostCreate": {
+        "properties": {
+          "post_title": {
+            "type": "string",
+            "title": "Post Title"
+          },
+          "caption": {
+            "type": "string",
+            "title": "Caption"
+          },
+          "music_title": {
+            "type": "string",
+            "title": "Music Title"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "is_private": {
+            "type": "boolean",
+            "title": "Is Private"
+          },
+          "is_membership_only": {
+            "type": "boolean",
+            "title": "Is Membership Only"
+          },
+          "is_only_for_followers": {
+            "type": "boolean",
+            "title": "Is Only For Followers"
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Video Url"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "tagged_profiles": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Tagged Profiles"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "is_draft": {
+            "type": "boolean",
+            "title": "Is Draft",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "post_title",
+          "caption",
+          "music_title",
+          "profile_uuid",
+          "is_private",
+          "is_membership_only",
+          "is_only_for_followers",
+          "video_url",
+          "thumbnail_url",
+          "hashtags",
+          "tagged_profiles",
+          "location"
+        ],
+        "title": "PostCreate"
+      },
+      "PostOut": {
+        "properties": {
+          "post_title": {
+            "type": "string",
+            "title": "Post Title"
+          },
+          "caption": {
+            "type": "string",
+            "title": "Caption"
+          },
+          "music_title": {
+            "type": "string",
+            "title": "Music Title"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "is_private": {
+            "type": "boolean",
+            "title": "Is Private"
+          },
+          "is_membership_only": {
+            "type": "boolean",
+            "title": "Is Membership Only"
+          },
+          "is_only_for_followers": {
+            "type": "boolean",
+            "title": "Is Only For Followers"
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Video Url"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "tagged_profiles": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Tagged Profiles"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "is_draft": {
+            "type": "boolean",
+            "title": "Is Draft",
+            "default": false
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "tagged_profiles_details": {
+            "items": {
+              "$ref": "#/components/schemas/ProfileOut"
+            },
+            "type": "array",
+            "title": "Tagged Profiles Details"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "post_title",
+          "caption",
+          "music_title",
+          "profile_uuid",
+          "is_private",
+          "is_membership_only",
+          "is_only_for_followers",
+          "video_url",
+          "thumbnail_url",
+          "hashtags",
+          "tagged_profiles",
+          "location",
+          "uuid",
+          "tagged_profiles_details",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "PostOut"
+      },
+      "PostPositionMetadata": {
+        "properties": {
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "layout": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Layout",
+            "description": "Mapping of positions (1-9) to post UUIDs"
+          }
+        },
+        "type": "object",
+        "required": ["profile_uuid", "layout"],
+        "title": "PostPositionMetadata",
+        "example": {
+          "layout": {
+            "1": "c9572e3d-a005-471b-bbc8-35103c364057",
+            "2": "31db2eef-b358-4ae8-bf26-a968fa74447f"
+          },
+          "profile_uuid": "c9572e3d-a005-471b-bbc8-35103c364057"
+        }
+      },
+      "PostUpdate": {
+        "properties": {
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid",
+            "description": "Post's uuid"
+          },
+          "post_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Title"
+          },
+          "caption": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Caption"
+          },
+          "music_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Music Title"
+          },
+          "is_private": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Private"
+          },
+          "is_membership_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Membership Only"
+          },
+          "is_only_for_followers": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Only For Followers"
+          },
+          "video_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Url"
+          },
+          "thumbnail_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thumbnail Url"
+          },
+          "hashtags": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/HashTag"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hashtags"
+          },
+          "tagged_profiles": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tagged Profiles"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "is_draft": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Draft"
+          }
+        },
+        "type": "object",
+        "required": ["profile_uuid", "uuid"],
+        "title": "PostUpdate"
+      },
+      "ProfileFewerDetailsOut": {
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "account_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Account Uuid"
+          },
+          "cover_media": {
+            "type": "string",
+            "title": "Cover Media"
+          },
+          "avatar_media": {
+            "type": "string",
+            "title": "Avatar Media"
+          },
+          "account": {
+            "$ref": "#/components/schemas/AccountFewerDetailsOut"
+          },
+          "is_private_profile": {
+            "type": "boolean",
+            "title": "Is Private Profile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uuid",
+          "account_uuid",
+          "cover_media",
+          "avatar_media",
+          "account",
+          "is_private_profile"
+        ],
+        "title": "ProfileFewerDetailsOut"
+      },
+      "ProfileIn": {
+        "properties": {
+          "cover_media": {
+            "type": "string",
+            "title": "Cover Media"
+          },
+          "avatar_media": {
+            "type": "string",
+            "title": "Avatar Media"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          },
+          "availability_status": {
+            "type": "boolean",
+            "title": "Availability Status"
+          },
+          "custom_phrase": {
+            "type": "string",
+            "title": "Custom Phrase"
+          },
+          "closing_message": {
+            "type": "string",
+            "title": "Closing Message"
+          },
+          "account_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Account Uuid"
+          },
+          "interests": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Interests"
+          },
+          "availability": {
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityIn"
+            },
+            "type": "array",
+            "title": "Availability"
+          },
+          "contacts": {
+            "items": {
+              "$ref": "#/components/schemas/ContactIn"
+            },
+            "type": "array",
+            "title": "Contacts"
+          },
+          "services": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Services"
+          },
+          "experiences": {
+            "items": {
+              "$ref": "#/components/schemas/ExperiencesIn"
+            },
+            "type": "array",
+            "title": "Experiences"
+          },
+          "skills": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "educations": {
+            "items": {
+              "$ref": "#/components/schemas/EducationIn"
+            },
+            "type": "array",
+            "title": "Educations"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationIn"
+          },
+          "social_links": {
+            "items": {
+              "$ref": "#/components/schemas/SocialLinkIn"
+            },
+            "type": "array",
+            "title": "Social Links"
+          },
+          "achievements": {
+            "items": {
+              "$ref": "#/components/schemas/AchievementIn"
+            },
+            "type": "array",
+            "title": "Achievements"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cover_media",
+          "avatar_media",
+          "bio",
+          "availability_status",
+          "custom_phrase",
+          "closing_message",
+          "account_uuid",
+          "interests",
+          "availability",
+          "contacts",
+          "services",
+          "experiences",
+          "skills",
+          "educations",
+          "location",
+          "social_links",
+          "achievements"
+        ],
+        "title": "ProfileIn"
+      },
+      "ProfileMetaDataOut": {
+        "properties": {
+          "followers_count": {
+            "type": "integer",
+            "title": "Followers Count"
+          },
+          "following_count": {
+            "type": "integer",
+            "title": "Following Count"
+          },
+          "like_count": {
+            "type": "integer",
+            "title": "Like Count"
+          },
+          "view_count": {
+            "type": "integer",
+            "title": "View Count"
+          },
+          "is_self": {
+            "type": "boolean",
+            "title": "Is Self"
+          },
+          "relationship_meta_data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RelationshipMetaDataOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "followers_count",
+          "following_count",
+          "like_count",
+          "view_count",
+          "is_self",
+          "relationship_meta_data"
+        ],
+        "title": "ProfileMetaDataOut"
+      },
+      "ProfileOut": {
+        "properties": {
+          "cover_media": {
+            "type": "string",
+            "title": "Cover Media"
+          },
+          "avatar_media": {
+            "type": "string",
+            "title": "Avatar Media"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          },
+          "availability_status": {
+            "type": "boolean",
+            "title": "Availability Status"
+          },
+          "custom_phrase": {
+            "type": "string",
+            "title": "Custom Phrase"
+          },
+          "closing_message": {
+            "type": "string",
+            "title": "Closing Message"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "account_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Account Uuid"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationOut"
+          },
+          "interests": {
+            "items": {
+              "$ref": "#/components/schemas/InterestOut"
+            },
+            "type": "array",
+            "title": "Interests"
+          },
+          "availability": {
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityOut"
+            },
+            "type": "array",
+            "title": "Availability"
+          },
+          "contacts": {
+            "items": {
+              "$ref": "#/components/schemas/ContactOut"
+            },
+            "type": "array",
+            "title": "Contacts"
+          },
+          "experiences": {
+            "items": {
+              "$ref": "#/components/schemas/ExperiencesOut"
+            },
+            "type": "array",
+            "title": "Experiences"
+          },
+          "educations": {
+            "items": {
+              "$ref": "#/components/schemas/EducationOut"
+            },
+            "type": "array",
+            "title": "Educations"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/SkillOut"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "social_links": {
+            "items": {
+              "$ref": "#/components/schemas/SocialLinkOut"
+            },
+            "type": "array",
+            "title": "Social Links"
+          },
+          "my_services": {
+            "items": {
+              "$ref": "#/components/schemas/MyServicesOut"
+            },
+            "type": "array",
+            "title": "My Services"
+          },
+          "achievements": {
+            "items": {
+              "$ref": "#/components/schemas/AchievementOut"
+            },
+            "type": "array",
+            "title": "Achievements"
+          },
+          "account": {
+            "$ref": "#/components/schemas/AccountOut"
+          },
+          "is_private_profile": {
+            "type": "boolean",
+            "title": "Is Private Profile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cover_media",
+          "avatar_media",
+          "bio",
+          "availability_status",
+          "custom_phrase",
+          "closing_message",
+          "uuid",
+          "account_uuid",
+          "location",
+          "interests",
+          "availability",
+          "contacts",
+          "experiences",
+          "educations",
+          "skills",
+          "social_links",
+          "my_services",
+          "achievements",
+          "account",
+          "is_private_profile"
+        ],
+        "title": "ProfileOut"
+      },
+      "ProfileUpdate": {
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "cover_media": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cover Media"
+          },
+          "avatar_media": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Media"
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio"
+          },
+          "availability_status": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability Status"
+          },
+          "custom_phrase": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Phrase"
+          },
+          "closing_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closing Message"
+          },
+          "interests": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interests"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AvailabilityIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability"
+          },
+          "contacts": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ContactIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contacts"
+          },
+          "services": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Services"
+          },
+          "experiences": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ExperiencesIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Experiences"
+          },
+          "skills": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skills"
+          },
+          "educations": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/EducationIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Educations"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LocationIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "social_links": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/SocialLinkIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Social Links"
+          },
+          "achievements": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AchievementIn"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Achievements"
+          }
+        },
+        "type": "object",
+        "required": ["uuid"],
+        "title": "ProfileUpdate"
+      },
+      "RegisterSuccess": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "session_token": {
+            "type": "string",
+            "title": "Session Token"
+          }
+        },
+        "type": "object",
+        "required": ["email", "session_token"],
+        "title": "RegisterSuccess"
+      },
+      "RelationshipMetaDataOut": {
+        "properties": {
+          "is_already_requested_to_follow": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Already Requested To Follow"
+          },
+          "is_already_following": {
+            "type": "boolean",
+            "title": "Is Already Following"
+          }
+        },
+        "type": "object",
+        "required": ["is_already_following"],
+        "title": "RelationshipMetaDataOut"
+      },
+      "ResetPassword": {
+        "properties": {
+          "old_password": {
+            "type": "string",
+            "title": "Old Password"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "confirm_password": {
+            "type": "string",
+            "title": "Confirm Password"
+          }
+        },
+        "type": "object",
+        "required": ["old_password", "password", "confirm_password"],
+        "title": "ResetPassword"
+      },
+      "ResetRequestSuccess": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "session_token": {
+            "type": "string",
+            "title": "Session Token"
+          }
+        },
+        "type": "object",
+        "required": ["email", "session_token"],
+        "title": "ResetRequestSuccess"
+      },
+      "ServerConfigOut": {
+        "properties": {
+          "base_url": {
+            "type": "string",
+            "title": "Base Url"
+          },
+          "cdn_url": {
+            "type": "string",
+            "title": "Cdn Url"
+          }
+        },
+        "type": "object",
+        "required": ["base_url", "cdn_url"],
+        "title": "ServerConfigOut"
+      },
+      "SignIn": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": ["email", "password"],
+        "title": "SignIn"
+      },
+      "SignInSuccess": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "session_token": {
+            "type": "string",
+            "title": "Session Token"
+          }
+        },
+        "type": "object",
+        "required": ["email", "session_token"],
+        "title": "SignInSuccess"
+      },
+      "SignUp": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "confirm_password": {
+            "type": "string",
+            "title": "Confirm Password"
+          },
+          "date_of_birth": {
+            "type": "string",
+            "format": "date",
+            "title": "Date Of Birth"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "username",
+          "confirm_password",
+          "date_of_birth"
+        ],
+        "title": "SignUp"
+      },
+      "SimpleResponse": {
+        "properties": {
+          "status_code": {
+            "type": "integer",
+            "title": "Status Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": ["status_code", "message"],
+        "title": "SimpleResponse"
+      },
+      "SkillOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          }
+        },
+        "type": "object",
+        "required": ["name", "category", "uuid"],
+        "title": "SkillOut"
+      },
+      "SocialLinkIn": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SocialLinks"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["type", "url"],
+        "title": "SocialLinkIn"
+      },
+      "SocialLinkOut": {
+        "properties": {
+          "uuid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uuid"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SocialLinks"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": ["type", "url"],
+        "title": "SocialLinkOut"
+      },
+      "SocialLinks": {
+        "type": "string",
+        "enum": [
+          "facebook",
+          "x",
+          "instagram",
+          "linkedin",
+          "github",
+          "discord",
+          "telegram",
+          "tiktok",
+          "youtube",
+          "twitch"
+        ],
+        "title": "SocialLinks"
+      },
+      "SupCreate": {
+        "properties": {
+          "caption": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 2,
+            "title": "Caption"
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Video Url"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "is_membership_only": {
+            "type": "boolean",
+            "title": "Is Membership Only"
+          },
+          "is_only_for_followers": {
+            "type": "boolean",
+            "title": "Is Only For Followers"
+          },
+          "tagged_profiles": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Tagged Profiles"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "create_from": {
+            "$ref": "#/components/schemas/SupCreatedFromEnum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "caption",
+          "video_url",
+          "thumbnail_url",
+          "hashtags",
+          "is_membership_only",
+          "is_only_for_followers",
+          "tagged_profiles",
+          "location",
+          "profile_uuid",
+          "create_from"
+        ],
+        "title": "SupCreate"
+      },
+      "SupCreatedFromEnum": {
+        "type": "string",
+        "enum": [
+          "POST",
+          "GIG_LIST",
+          "ARTIST",
+          "EVENT",
+          "PRO_SERVICE",
+          "CAMPAIGN",
+          "MEMBERSHIP",
+          "NONE"
+        ],
+        "title": "SupCreatedFromEnum"
+      },
+      "SupOut": {
+        "properties": {
+          "caption": {
+            "type": "string",
+            "maxLength": 150,
+            "minLength": 2,
+            "title": "Caption"
+          },
+          "video_url": {
+            "type": "string",
+            "title": "Video Url"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "Thumbnail Url"
+          },
+          "hashtags": {
+            "items": {
+              "$ref": "#/components/schemas/HashTag"
+            },
+            "type": "array",
+            "title": "Hashtags"
+          },
+          "is_membership_only": {
+            "type": "boolean",
+            "title": "Is Membership Only"
+          },
+          "is_only_for_followers": {
+            "type": "boolean",
+            "title": "Is Only For Followers"
+          },
+          "tagged_profiles": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Tagged Profiles"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "long": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+          "profile_uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Profile Uuid"
+          },
+          "create_from": {
+            "$ref": "#/components/schemas/SupCreatedFromEnum"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Uuid"
+          },
+          "tagged_profiles_details": {
+            "items": {
+              "$ref": "#/components/schemas/ProfileOut"
+            },
+            "type": "array",
+            "title": "Tagged Profiles Details"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "is_already_seen": {
+            "type": "boolean",
+            "title": "Is Already Seen"
+          }
+        },
+        "type": "object",
+        "required": [
+          "caption",
+          "video_url",
+          "thumbnail_url",
+          "hashtags",
+          "is_membership_only",
+          "is_only_for_followers",
+          "tagged_profiles",
+          "location",
+          "profile_uuid",
+          "create_from",
+          "uuid",
+          "tagged_profiles_details",
+          "created_at",
+          "updated_at",
+          "is_already_seen"
+        ],
+        "title": "SupOut"
+      },
+      "TokenOut": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          }
+        },
+        "type": "object",
+        "required": ["access_token", "refresh_token"],
+        "title": "TokenOut"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "VerifyOTP": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "otp": {
+            "type": "string",
+            "title": "Otp"
+          }
+        },
+        "type": "object",
+        "required": ["email", "otp"],
+        "title": "VerifyOTP"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
 }

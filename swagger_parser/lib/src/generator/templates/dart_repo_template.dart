@@ -57,7 +57,7 @@ String _toRepo(
   final sb = StringBuffer(
     '''
 
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ', end: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
   Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
   );
   if (request.parameters.isNotEmpty ||

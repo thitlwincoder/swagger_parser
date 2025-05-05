@@ -22,7 +22,6 @@ String descriptionComment(
   String? description, {
   bool tabForFirstLine = true,
   String tab = '',
-  String end = '',
 }) {
   if (description == null || description.isEmpty) {
     return '';
@@ -36,11 +35,7 @@ String descriptionComment(
         '${!tabForFirstLine && m.start == 0 ? '' : tab}///${m[1]!.trim().isEmpty ? '' : ' '}${m.start == 0 && m.end == description.length ? m[1] : addDot(m[1])}',
   );
 
-  if (end.trim().isEmpty) {
-    return '$result\n';
-  }
-
-  return '$result\n$end\n';
+  return result;
 }
 
 /// Add dot to string if not exist
@@ -80,17 +75,13 @@ String generatedFileComment({
 }) =>
     markFileAsGenerated
         ? ignoreLints
-            ? '$_generatedCodeComment$_ignoreLintsComment\n'
+            ? '$_generatedCodeComment\n'
             : '$_generatedCodeComment\n'
         : '';
 
 const _generatedCodeComment = '''
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-''';
-
-const _ignoreLintsComment = '''
-// ignore_for_file: type=lint, unused_import
 ''';
 
 // String createCleanFolder(GenerateCleanArch arch, String name, String path) {

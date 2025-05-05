@@ -73,7 +73,7 @@ class $name implements ${name.replaceFirst('Mock', '')}{
   final sb = StringBuffer(
     '''
 
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ', end: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}\n   @override
+  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}\n   @override
   Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
   );
   if (request.parameters.isNotEmpty ||
