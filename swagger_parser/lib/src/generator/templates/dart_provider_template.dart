@@ -14,7 +14,7 @@ String dartProviderTemplate({
 }) {
   final sb = StringBuffer('''
 ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${name}_repo.dart';
