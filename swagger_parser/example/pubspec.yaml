@@ -2,7 +2,7 @@ name: example
 description: A project that showcases usage of swagger_parser
 publish_to: none
 environment:
-  sdk: 3.6.1
+  sdk: 3.7.2
 
 dependencies:
   dart_mappable: ^4.2.2
