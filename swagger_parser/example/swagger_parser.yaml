@@ -3,7 +3,7 @@ swagger_parser:
 
   # schema_path: openapi.json
   # Sets the OpenApi schema path directory for api definition.
-  schema_url: http://127.0.0.1:8000/openapi.json
+  schema_url: https://api.gigger.art/openapi.json
 
   # Required. Sets output directory for generated files (Clients and DTOs).
   output_directory: lib/
@@ -89,6 +89,9 @@ swagger_parser:
         - "Sup"
         - "GigLists"
         # - "Posts"
+    send_progress:
+      - "/api/v1/file_upload/"
+      - "/api/v1/file_upload/video/"
     dio_provider_path: "../../../../dio_provider.dart"
     mock_gen: false
     mock_data:

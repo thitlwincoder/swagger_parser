@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:yaml/src/yaml_node.dart';
 
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
@@ -15,17 +16,14 @@ String dartUseCaseTemplate({
   required bool markFileAsGenerated,
   required String defaultContentType,
   required UniversalRestClient restClient,
+  required YamlList sendProgress,
   bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
 }) {
   final sb = StringBuffer(
     '''
-${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImport(restClient)}${_fileImport(
-      restClient,
-    )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
-import 'package:retrofit/retrofit.dart';
-${getImports(restClient.imports, putInFolder, isMerge, '../../data/')}
+${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_fileImport(restClient)}${_dioImport(restClient, sendProgress)}${getImports(restClient.imports, putInFolder, isMerge, '../../data/')}
 import '${putInFolder ? '../repositories/' : ''}${repoName.toSnake}.dart';
 ''',
   );
@@ -38,6 +36,7 @@ import '${putInFolder ? '../repositories/' : ''}${repoName.toSnake}.dart';
         originalHttpResponse: originalHttpResponse,
         extrasParameterByDefault: extrasParameterByDefault,
         dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+        sendProgress: sendProgress,
       ),
     );
   }
@@ -51,6 +50,7 @@ String _toUseCase(
   required bool originalHttpResponse,
   required bool extrasParameterByDefault,
   required bool dioOptionsParameterByDefault,
+  required YamlList sendProgress,
 }) {
   final responseType = request.returnType == null
       ? 'void'
@@ -75,6 +75,11 @@ String _toUseCase(
   sb.write(
     '${request.parameters.isNotEmpty ? 'required' : ''} $repoName repo,\n',
   );
+  if (sendProgress.contains(request.route)) {
+    sb.write(
+      '    required ProgressCallback onSendProgress,\n',
+    );
+  }
 
   if (extrasParameterByDefault) {
     sb.write(_addExtraParameter());
@@ -94,6 +99,11 @@ String _toUseCase(
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');
   }
+  if (sendProgress.contains(request.route)) {
+    sb.write(
+      '    onSendProgress:onSendProgress,\n',
+    );
+  }
 
   sb
     ..writeln('    );')
@@ -101,21 +111,19 @@ String _toUseCase(
   return sb.toString();
 }
 
-String _convertImport(UniversalRestClient restClient) =>
-    restClient.requests.any(
-      (r) => r.parameters.any(
-        (e) => e.parameterType.isPart,
-      ),
-    )
-        ? "import 'dart:convert';\n"
-        : '';
-
 String _fileImport(UniversalRestClient restClient) => restClient.requests.any(
       (r) => r.parameters.any(
         (e) => e.type.toSuitableType(ProgrammingLanguage.dart).contains('File'),
       ),
     )
         ? "import 'dart:io';\n\n"
+        : '';
+
+String _dioImport(UniversalRestClient restClient, YamlList sendProgress) =>
+    restClient.requests.any(
+      (r) => sendProgress.contains(r.route),
+    )
+        ? "import 'package:dio/dio.dart';"
         : '';
 
 String _addExtraParameter() => '    Map<String, dynamic>? extras,\n';
@@ -148,19 +156,6 @@ String _toConstructor(UniversalRequestType parameter) {
 
   return '$keywordArguments: $keywordArguments,';
 }
-
-/// ` hide Headers ` for retrofit Headers
-String _hideHeaders(
-  UniversalRestClient restClient,
-  String defaultContentType,
-) =>
-    restClient.requests.any(
-      (r) =>
-          r.contentType != defaultContentType &&
-          !(r.isMultiPart || r.isFormUrlEncoded),
-    )
-        ? ' hide Headers'
-        : '';
 
 /// return required if isRequired
 String _required(UniversalType t) =>

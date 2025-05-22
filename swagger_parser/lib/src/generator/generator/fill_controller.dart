@@ -72,6 +72,7 @@ final class FillController {
         originalHttpResponse: config.originalHttpResponse,
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
+        sendProgress: config.generateCleanArch?.sendProgress ?? YamlList(),
       ),
     );
   }
@@ -135,6 +136,7 @@ final class FillController {
         originalHttpResponse: config.originalHttpResponse,
         extrasParameterByDefault: config.extrasParameterByDefault,
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
+        sendProgress: config.generateCleanArch?.sendProgress ?? YamlList(),
       ),
     );
   }
@@ -167,6 +169,7 @@ final class FillController {
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
         originalHttpResponse: config.originalHttpResponse,
         putInFolder: config.putInFolder,
+        sendProgress: config.generateCleanArch?.sendProgress ?? YamlList(),
       ),
     );
   }
@@ -200,6 +203,7 @@ final class FillController {
         dioOptionsParameterByDefault: config.dioOptionsParameterByDefault,
         originalHttpResponse: config.originalHttpResponse,
         putInFolder: config.putInFolder,
+        sendProgress: config.generateCleanArch?.sendProgress ?? YamlList(),
       ),
     );
   }

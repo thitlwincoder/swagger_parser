@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:yaml/src/yaml_node.dart';
 
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
@@ -14,13 +15,14 @@ String dartRetrofitClientTemplate({
   required bool markFileAsGenerated,
   required String defaultContentType,
   required UniversalRestClient restClient,
+  required YamlList sendProgress,
   bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
 }) {
   final sb = StringBuffer(
     '''
-${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImport(restClient)}${_fileImport(
+${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_fileImport(
       restClient,
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
@@ -40,6 +42,7 @@ abstract class $name {
         originalHttpResponse: originalHttpResponse,
         extrasParameterByDefault: extrasParameterByDefault,
         dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+        sendProgress: sendProgress,
       ),
     );
   }
@@ -53,6 +56,7 @@ String _toClientRequest(
   required bool originalHttpResponse,
   required bool extrasParameterByDefault,
   required bool dioOptionsParameterByDefault,
+  required YamlList sendProgress,
 }) {
   final responseType = request.returnType == null
       ? 'void'
@@ -74,6 +78,11 @@ String _toClientRequest(
   for (final parameter in sortedByRequired) {
     sb.write('${_toParameter(parameter)}\n');
   }
+  if (sendProgress.contains(request.route)) {
+    sb.write(
+      '    @SendProgress() required ProgressCallback onSendProgress,\n',
+    );
+  }
   if (extrasParameterByDefault) {
     sb.write(_addExtraParameter());
   }
@@ -89,15 +98,6 @@ String _toClientRequest(
   }
   return sb.toString();
 }
-
-String _convertImport(UniversalRestClient restClient) =>
-    restClient.requests.any(
-      (r) => r.parameters.any(
-        (e) => e.parameterType.isPart,
-      ),
-    )
-        ? "import 'dart:convert';\n"
-        : '';
 
 String _fileImport(UniversalRestClient restClient) => restClient.requests.any(
       (r) => r.parameters.any(

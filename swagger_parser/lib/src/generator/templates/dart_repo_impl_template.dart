@@ -1,5 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:collection/collection.dart';
+import 'package:yaml/src/yaml_node.dart';
 
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
@@ -16,6 +16,7 @@ String dartRepoImplTemplate({
   required bool markFileAsGenerated,
   required String defaultContentType,
   required UniversalRestClient restClient,
+  required YamlList sendProgress,
   bool originalHttpResponse = false,
   bool extrasParameterByDefault = false,
   bool dioOptionsParameterByDefault = false,
@@ -24,10 +25,7 @@ String dartRepoImplTemplate({
 
   final sb = StringBuffer(
     '''
-${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_convertImport(restClient)}${_fileImport(
-      restClient,
-    )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
-import 'package:retrofit/retrofit.dart';
+${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_fileImport(restClient)}${_dioImport(restClient, sendProgress)}${_hideHeaders(restClient, defaultContentType)}
 ${getImports(restClient.imports, putInFolder, isMerge, '../')}
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${'${name}_repo'}.dart';
 import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
@@ -46,6 +44,7 @@ class $fileName implements ${'${name}Repo'.toPascal} {
         originalHttpResponse: originalHttpResponse,
         extrasParameterByDefault: extrasParameterByDefault,
         dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+        sendProgress: sendProgress,
       ),
     );
   }
@@ -59,6 +58,7 @@ String _toRepoImpl(
   required bool originalHttpResponse,
   required bool extrasParameterByDefault,
   required bool dioOptionsParameterByDefault,
+  required YamlList sendProgress,
 }) {
   final responseType = request.returnType == null
       ? 'void'
@@ -67,6 +67,7 @@ String _toRepoImpl(
     '''
 
   ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+  @override
   Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
   );
   if (request.parameters.isNotEmpty ||
@@ -79,6 +80,11 @@ String _toRepoImpl(
   );
   for (final parameter in sortedByRequired) {
     sb.write('${_toParameter(parameter)}\n');
+  }
+  if (sendProgress.contains(request.route)) {
+    sb.write(
+      '    required ProgressCallback onSendProgress,\n',
+    );
   }
   if (extrasParameterByDefault) {
     sb.write(_addExtraParameter());
@@ -98,6 +104,11 @@ String _toRepoImpl(
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');
   }
+  if (sendProgress.contains(request.route)) {
+    sb.write(
+      '    onSendProgress:onSendProgress,\n',
+    );
+  }
 
   sb
     ..writeln('    );')
@@ -105,21 +116,19 @@ String _toRepoImpl(
   return sb.toString();
 }
 
-String _convertImport(UniversalRestClient restClient) =>
-    restClient.requests.any(
-      (r) => r.parameters.any(
-        (e) => e.parameterType.isPart,
-      ),
-    )
-        ? "import 'dart:convert';\n"
-        : '';
-
 String _fileImport(UniversalRestClient restClient) => restClient.requests.any(
       (r) => r.parameters.any(
         (e) => e.type.toSuitableType(ProgrammingLanguage.dart).contains('File'),
       ),
     )
         ? "import 'dart:io';\n\n"
+        : '';
+
+String _dioImport(UniversalRestClient restClient, YamlList sendProgress) =>
+    restClient.requests.any(
+      (r) => sendProgress.contains(r.route),
+    )
+        ? "import 'package:dio/dio.dart';"
         : '';
 
 String _addExtraParameter() => '    Map<String, dynamic>? extras,\n';

@@ -116,6 +116,7 @@ enum ProgrammingLanguage {
     required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required YamlList sendProgress,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -131,6 +132,7 @@ enum ProgrammingLanguage {
             originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            sendProgress: sendProgress,
           ),
         kotlin => kotlinRetrofitClientTemplate(
             name: name,
@@ -179,6 +181,7 @@ enum ProgrammingLanguage {
     required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required YamlList sendProgress,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -194,6 +197,7 @@ enum ProgrammingLanguage {
             originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            sendProgress: sendProgress,
           ),
         kotlin => '',
       };
@@ -206,6 +210,7 @@ enum ProgrammingLanguage {
     required String? mergeName,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required YamlList sendProgress,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -222,6 +227,7 @@ enum ProgrammingLanguage {
             originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            sendProgress: sendProgress,
           ),
         kotlin => '',
       };
@@ -234,6 +240,7 @@ enum ProgrammingLanguage {
     required bool putInFolder,
     required bool markFilesAsGenerated,
     required String defaultContentType,
+    required YamlList sendProgress,
     bool originalHttpResponse = false,
     bool extrasParameterByDefault = false,
     bool dioOptionsParameterByDefault = false,
@@ -250,6 +257,7 @@ enum ProgrammingLanguage {
             originalHttpResponse: originalHttpResponse,
             extrasParameterByDefault: extrasParameterByDefault,
             dioOptionsParameterByDefault: dioOptionsParameterByDefault,
+            sendProgress: sendProgress,
           ),
         kotlin => '',
       };
