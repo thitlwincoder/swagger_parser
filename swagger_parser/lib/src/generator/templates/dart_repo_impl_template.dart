@@ -4,6 +4,7 @@ import 'package:yaml/src/yaml_node.dart';
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
+import '../../utils/encode.dart';
 import '../../utils/type_utils.dart';
 import '../model/programming_language.dart';
 
@@ -30,10 +31,10 @@ ${getImports(restClient.imports, putInFolder, isMerge, '../')}
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${'${name}_repo'}.dart';
 import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
 
-class $fileName implements ${'${name}Repo'.toPascal} {
-  $fileName(this.client);
+class ${encode(fileName)} implements ${encode('${name}Repo'.toPascal)} {
+  ${encode(fileName)}(this.client);
 
-  final ${'${name}Client'.toPascal} client;
+  final ${encode('${name}Client'.toPascal)} client;
 ''',
   );
   for (final request in restClient.requests) {
@@ -68,7 +69,7 @@ String _toRepoImpl(
 
   ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
   @override
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name)}(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||
@@ -99,7 +100,7 @@ String _toRepoImpl(
   } else {
     sb.write(')');
   }
-  sb.writeln(' {\n    return client.${request.name}(');
+  sb.writeln(' {\n    return client.${encode(request.name)}(');
 
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');

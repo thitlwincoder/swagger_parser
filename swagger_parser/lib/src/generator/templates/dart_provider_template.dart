@@ -1,6 +1,7 @@
 import '../../../swagger_parser.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
+import '../../utils/encode.dart';
 
 /// Provides template for generating dart Provider
 String dartProviderTemplate({
@@ -26,13 +27,13 @@ ${mockGen ? '' : dioProviderPath != null ? "import '${isMerge ? '../$dioProvider
 part '${name}_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-${name.toPascal}Client ${name.toCamel}Client(Ref ref) {
-${mockGen ? 'return ${name.toPascal}ClientMock();' : 'return ${name.toPascal}Client(ref.watch(dioProvider));'}
+${encode('${name.toPascal}Client')} ${name.toCamel}Client(Ref ref) {
+${mockGen ? 'return ${name.toPascal}ClientMock();' : 'return ${encode('${name.toPascal}Client')}(ref.watch(dioProvider));'}
 }
 
 @Riverpod(keepAlive: true)
-${name.toPascal}Repo ${name.toCamel}Repo(Ref ref) {
-  return ${name.toPascal}RepoImpl(ref.watch(${name.toCamel}ClientProvider));
+${encode('${name.toPascal}Repo')} ${name.toCamel}Repo(Ref ref) {
+  return ${encode('${name.toPascal}RepoImpl')}(ref.watch(${name.toCamel}ClientProvider));
 }
 ''');
   return sb.toString();

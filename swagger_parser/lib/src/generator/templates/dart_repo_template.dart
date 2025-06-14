@@ -4,6 +4,7 @@ import 'package:yaml/src/yaml_node.dart';
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
+import '../../utils/encode.dart';
 import '../../utils/type_utils.dart';
 import '../model/programming_language.dart';
 
@@ -26,7 +27,7 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}
 ${_fileImport(restClient)}
 ${_dioImport(restClient, sendProgress)}
 ${getImports(restClient.imports, putInFolder, isMerge, '../../data/')}
-abstract class $name {
+abstract class ${encode(name)} {
 ''',
   );
   for (final request in restClient.requests) {
@@ -60,7 +61,7 @@ String _toRepo(
     '''
 
   ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}(''',
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name)}(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||

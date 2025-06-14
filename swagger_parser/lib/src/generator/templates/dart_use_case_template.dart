@@ -4,6 +4,7 @@ import 'package:yaml/src/yaml_node.dart';
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
+import '../../utils/encode.dart';
 import '../../utils/type_utils.dart';
 import '../model/programming_language.dart';
 
@@ -73,7 +74,7 @@ String _toUseCase(
     sb.write('${_toParameter(parameter)}\n');
   }
   sb.write(
-    '${request.parameters.isNotEmpty ? 'required' : ''} $repoName repo,\n',
+    '${request.parameters.isNotEmpty ? 'required' : ''} ${encode(repoName)} repo,\n',
   );
   if (sendProgress.contains(request.route)) {
     sb.write(
@@ -94,7 +95,7 @@ String _toUseCase(
   } else {
     sb.write(')');
   }
-  sb.writeln(' {\n    return repo.${request.name}(');
+  sb.writeln(' {\n    return repo.${encode(request.name)}(');
 
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');

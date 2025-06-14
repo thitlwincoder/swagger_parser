@@ -31,8 +31,8 @@ ${getImports(restClient.imports, putInFolder, isMerge, '../')}
 part '${name.toSnake}.g.dart';
 
 @RestApi()
-abstract class $name {
-  factory $name(Dio dio, {String? baseUrl}) = _$name;
+abstract class ${encode(name.toPascal)} {
+  factory ${encode(name.toPascal)}(Dio dio, {String? baseUrl}) = _${encode(name.toPascal)};
 ''',
   );
   for (final request in restClient.requests) {
