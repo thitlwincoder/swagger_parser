@@ -59,9 +59,8 @@ String _toRepo(
       : request.returnType!.toSuitableType(ProgrammingLanguage.dart);
   final sb = StringBuffer(
     '''
-
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name)}(''',
+${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name).toCamel}(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||

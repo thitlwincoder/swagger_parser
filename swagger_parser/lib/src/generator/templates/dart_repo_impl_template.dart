@@ -29,7 +29,7 @@ String dartRepoImplTemplate({
 ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_fileImport(restClient)}${_dioImport(restClient, sendProgress)}${_hideHeaders(restClient, defaultContentType)}
 ${getImports(restClient.imports, putInFolder, isMerge, '../')}
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${'${name}_repo'}.dart';
-import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
+import '${putInFolder ? '../clients/' : '../../../../../gen/'}${isMerge ? '$name/' : ''}${encode('${name}_client').toSnake}.dart';
 
 class ${encode(fileName)} implements ${encode('${name}Repo'.toPascal)} {
   ${encode(fileName)}(this.client);
@@ -67,9 +67,9 @@ String _toRepoImpl(
   final sb = StringBuffer(
     '''
 
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+  ${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
   @override
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name)}(''',
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name).toCamel}(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||
@@ -100,7 +100,7 @@ String _toRepoImpl(
   } else {
     sb.write(')');
   }
-  sb.writeln(' {\n    return client.${encode(request.name)}(');
+  sb.writeln(' {\n    return client.${encode(request.name).toCamel}(');
 
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');

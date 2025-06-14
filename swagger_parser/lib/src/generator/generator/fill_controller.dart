@@ -3,6 +3,7 @@ import 'package:yaml/yaml.dart';
 import '../../parser/swagger_parser_core.dart';
 import '../../parser/utils/case_utils.dart';
 import '../../utils/base_utils.dart';
+import '../../utils/encode.dart';
 import '../config/generator_config.dart';
 import '../model/generated_file.dart';
 import '../model/programming_language.dart';
@@ -54,10 +55,10 @@ final class FillController {
 
     if (names.mergeName == null) {
       name =
-          '${names.folderName}/${names.fileName}.${config.language.fileExtension}';
+          '${names.folderName}/${encode(names.fileName).toSnake}.${config.language.fileExtension}';
     } else {
       name =
-          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${names.fileName}.${config.language.fileExtension}';
+          '${names.folderName.replaceFirst(names.name, names.mergeName!)}/${names.name}/${encode(names.fileName).toSnake}.${config.language.fileExtension}';
     }
 
     return GeneratedFile(

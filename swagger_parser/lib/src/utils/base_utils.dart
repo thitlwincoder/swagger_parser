@@ -142,18 +142,23 @@ String? checkMerge(GeneratorConfig config, String name) {
     name = checkArchMapping(arch, client.name);
     mergeName = checkMerge(config, client.name);
 
-    folderName = config.putInFolder
-        ? p.join(
-            folder,
-            postfix == 'repo' || postfix == 'repo_impl'
-                ? 'repositories'
-                : postfix == 'use_case'
-                    ? 'use_cases'
-                    : postfix == 'provider'
-                        ? 'providers'
-                        : 'clients',
-          )
-        : '${arch.baseFolder}/${name.toSnake}/$folder';
+    if (postfix == 'Client') {
+      folderName = 'gen';
+    } else {
+      folderName = config.putInFolder
+          ? p.join(
+              folder,
+              postfix == 'repo' || postfix == 'repo_impl'
+                  ? 'repositories'
+                  : postfix == 'use_case'
+                      ? 'use_cases'
+                      : postfix == 'provider'
+                          ? 'providers'
+                          : 'clients',
+            )
+          : '${arch.baseFolder}/${name.toSnake}/$folder';
+    }
+
     fileName = '${name}_$postfix'.toSnake;
   } else {
     name = client.name;

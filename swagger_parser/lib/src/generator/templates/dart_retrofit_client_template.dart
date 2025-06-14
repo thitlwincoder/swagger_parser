@@ -28,7 +28,7 @@ ${generatedFileComment(markFileAsGenerated: markFileAsGenerated)}${_fileImport(
     )}import 'package:dio/dio.dart'${_hideHeaders(restClient, defaultContentType)};
 import 'package:retrofit/retrofit.dart';
 ${getImports(restClient.imports, putInFolder, isMerge, '../')}
-part '${name.toSnake}.g.dart';
+part '${encode(name.toSnake).toSnake}.g.dart';
 
 @RestApi()
 abstract class ${encode(name.toPascal)} {
@@ -65,8 +65,8 @@ String _toClientRequest(
   final sb = StringBuffer(
     '''
 
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}\n${_contentTypeHeader(request, defaultContentType)}@${request.requestType.name.toUpperCase()}('${request.route}')
-  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name)}(''',
+  ${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}\n${_contentTypeHeader(request, defaultContentType)}@${request.requestType.name.toUpperCase()}('${request.route}')
+  Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${encode(request.name).toCamel}(''',
   );
   if (request.parameters.isNotEmpty ||
       extrasParameterByDefault ||

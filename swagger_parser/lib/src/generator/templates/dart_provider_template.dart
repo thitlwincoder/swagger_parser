@@ -19,8 +19,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '${putInFolder ? '../../domain/repositories/' : isMerge ? '../../domain/$name/' : '../domain/'}${name}_repo.dart';
-import '${putInFolder ? '../clients/' : ''}${name}_client.dart';
-${mockGen ? "import '${putInFolder ? '../clients/' : ''}${name}_client_mock.dart';" : ''}
+import '${putInFolder ? '../clients/' : '../../../../../gen/'}${isMerge ? '$name/' : ''}${encode('${name}_client').toSnake}.dart';
 import '${putInFolder ? '../repositories/' : ''}${name}_repo_impl.dart';
 ${mockGen ? '' : dioProviderPath != null ? "import '${isMerge ? '../$dioProviderPath' : dioProviderPath}';" : ''}
 

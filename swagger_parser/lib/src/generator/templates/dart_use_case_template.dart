@@ -58,8 +58,7 @@ String _toUseCase(
       : request.returnType!.toSuitableType(ProgrammingLanguage.dart);
   final sb = StringBuffer(
     '''
-
-  ${descriptionComment(request.description, tabForFirstLine: false, tab: '  ')}${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
+${request.isDeprecated ? "@Deprecated('This method is marked as deprecated')\n  " : ''}
   Future<${originalHttpResponse ? 'HttpResponse<$responseType>' : responseType}> ${request.name}UseCase(''',
   );
   if (request.parameters.isNotEmpty ||
@@ -95,7 +94,7 @@ String _toUseCase(
   } else {
     sb.write(')');
   }
-  sb.writeln(' {\n    return repo.${encode(request.name)}(');
+  sb.writeln(' {\n    return repo.${encode(request.name).toCamel}(');
 
   for (final parameter in sortedByRequired) {
     sb.write('      ${_toConstructor(parameter)}\n');
